@@ -1,0 +1,123 @@
+div.menuContainer {
+    color: #FFFFFF;
+    position: absolute;
+    right: -1px;
+    padding: 0 10px;
+    border: 1px solid white;
+    top: -1px;
+    background-color: rgba(0,0,0,0.6);
+    height: 100%;
+    width: 220px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+        div.menuContainer > div.synthSelector {
+            text-align: center;
+            border-bottom: 1px solid #FFFFFF;
+            padding: 10px 0;
+        }
+        div.menuContainer > div.synthSelector > div.button {
+            width: 26px;
+            display: inline-block;
+            border: 1px solid #FFFFFF;
+            height: 26px;
+            margin: 0 2px;
+            border-radius: 3px;
+            cursor: pointer;
+            padding: 2px;
+            box-sizing: border-box;
+            vertical-align: top;
+        }
+        div.menuContainer > div.synthSelector > div.button > div.inner {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #999999;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        div.menuContainer > div.synthSelector > div.button > div.inner.active {
+            border: 1px solid #FFFFFF;
+            background-color: #FFFF00;
+        }
+        div.menuContainer > div.synthSelector > div.button > div.inner.updating {
+            background-color: #FF0000;
+        }
+        div.menuContainer > div.synthSelector > div.button > div.inner.false:hover {
+            background-color: #444400;
+        }
+
+
+        div.menuContainer > div.helpPanel {
+            padding: 10px 0;
+        }
+
+        div.menuContainer > div.button {
+            text-align: center;
+            border-bottom: 1px solid #FFFFFF;
+            padding: 6px 0;
+            font-size: 16px;
+            text-align: center;
+            cursor: pointer;
+        }
+        div.menuContainer > div.button:hover {
+            background-color: rgba(100,100,100,0.3);
+        }
+
+        div.menuContainer > div.middle {
+            display: flex;
+            border-bottom: 1px solid #FFFFFF;
+        }
+            div.menuContainer > div.middle > div.panel {
+                display: inline-block;
+                align-items: stretch;
+                padding: 5px 0;
+            }
+
+            div.menuContainer > div.middle > div.panel.border {
+                border-right: 1px solid white;
+                padding-right: 10px;
+                margin-right: 10px;
+                text-align: center;
+            }
+
+
+
+                div.menuContainer > div.middle > div.panel div.sliderVertical{
+                    margin: 4px 0;
+                }
+
+                div.menuContainer > div.middle > div.panel.left > div.sliderVertical {
+                    height: 207px;
+                }
+                div.menuContainer > div.middle > div.panel.middle > div.sliderVertical {
+                    height: 207px;
+                }
+
+                div.menuContainer > div.middle > div.panel.right hr {
+                    margin: 10px 0;
+                }
+                div.menuContainer > div.middle > div.panel.right > div.theme {
+                    cursor: pointer;
+                    padding-left: 20px;
+                }
+                div.menuContainer > div.middle > div.panel.right > div.theme:hover{
+                    background-color: rgba(100,100,100,0.3);
+                }
+                div.menuContainer > div.middle > div.panel.right > div.theme.true {
+                    color: #FFFF00;
+                }
+
+
+
+div.menuContainer span.title {
+    font-size: 16px;
+    width: 100%;
+    display: table;
+    vertical-align: top;
+}
+div.menuContainer > div.animation {
+
+}

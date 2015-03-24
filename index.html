@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html data-ng-app="hexSynth" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="description" content="Dearth Funk, music and web applications.">
+    <meta name="keywords" content="Dearth, Funk, DearthFunk, Djangular, D'Jangular, Colonies, Hexsynth, Hex Synth, Hex">
+    <meta name="author" content="Dearth Funk aka. Tylor Spence">
+
+
+    <title>Hex Synth!</title>
+    <!-- _____          ___           ___           ___                       ___                    ___         ___           ___           ___
+    /  /::\        /  /\         /  /\         /  /\          ___        /__/\                  /  /\       /__/\         /__/\         /__/|
+   /  /:/\:\      /  /:/_       /  /::\       /  /::\        /  /\       \  \:\                /  /:/_      \  \:\        \  \:\       |  |:|
+  /  /:/  \:\    /  /:/ /\     /  /:/\:\     /  /:/\:\      /  /:/        \__\:\              /  /:/ /\      \  \:\        \  \:\      |  |:|
+ /__/:/ \__\:|  /  /:/ /:/_   /  /:/~/::\   /  /:/~/:/     /  /:/     ___ /  /::\            /  /:/ /:/  ___  \  \:\   _____\__\:\   __|  |:|
+ \  \:\ /  /:/ /__/:/ /:/ /\ /__/:/ /:/\:\ /__/:/ /:/___  /  /::\    /__/\  /:/\:\          /__/:/ /:/  /__/\  \__\:\ /__/::::::::\ /__/\_|:|____
+  \  \:\  /:/  \  \:\/:/ /:/ \  \:\/:/__\/ \  \:\/:::::/ /__/:/\:\   \  \:\/:/__\/          \  \:\/:/   \  \:\ /  /:/ \  \:\~~\~~\/ \  \:\/:::::/
+   \  \:\/:/    \  \::/ /:/   \  \::/       \  \::/~~~~  \__\/  \:\   \  \::/                \  \::/     \  \:\  /:/   \  \:\  ~~~   \  \::/~~~~
+    \  \::/      \  \:\/:/     \  \:\        \  \:\           \  \:\   \  \:\                 \  \:\      \  \:\/:/     \  \:\        \  \:\
+     \__\/        \  \::/       \  \:\        \  \:\           \__\/    \  \:\                 \  \:\      \  \::/       \  \:\        \  \:\
+                   \__\/         \__\/         \__\/                     \__\/                  \__\/       \__\/         \__\/         \__\/  -->
+
+    <!--LIBRARIES------------------------------------------------------------------------------------------------------>
+        <script type="text/javascript" src="lib/angular/angular.js"></script>
+        <script type="text/javascript" src="lib/tuna/tuna.js"></script>
+        <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+        <script type="text/javascript" src="lib/zeroClipboard/ZeroClipboard.js"></script>
+
+    <!--MAIN----------------------------------------------------------------------------------------------------------->
+        <link rel="stylesheet" href="css/main.css">
+        <script type="text/javascript" src="js/controller.js"></script>
+        <script type="text/javascript" src="js/functions.js"></script>
+        <script type="text/javascript" src="js/variables.js"></script>
+
+    <!--ELEMENTS------------------------------------------------------------------------------------------------------->
+        <script type="text/javascript" src="elements/knob/knob.js"></script>
+        <script type="text/javascript" src="elements/dropDown/dropDown.js"></script>
+        <link rel="stylesheet" href="elements/dropDown/dropDown.css">
+        <script type="text/javascript" src="elements/sliderVertical/sliderVertical.js"></script>
+        <link rel="stylesheet" href="elements/sliderVertical/sliderVertical.css">
+        <script type="text/javascript" src="elements/knob/knob.js"></script>
+
+    <!--DIRECTIVES----------------------------------------------------------------------------------------------------->
+        <script type="text/javascript" src="directives/menu/menu.js"></script>
+        <link rel="stylesheet" href="directives/menu/menu.css">
+        <script type="text/javascript" src="directives/synthControls/synthControls.js"></script>
+        <link rel="stylesheet" href="directives/synthControls/synthControls.css">
+        <script type="text/javascript" src="directives/copier/copier.js"></script>
+        <link rel="stylesheet" href="directives/copier/copier.css">
+        <script type="text/javascript" src="directives/helpWindow/helpWindow.js"></script>
+        <link rel="stylesheet" href="directives/helpWindow/helpWindow.css">
+
+    <!--SERVICES------------------------------------------------------------------------------------------------------->
+        <script type="text/javascript" src="js/services/audio.js"></script>
+        <script type="text/javascript" src="js/services/event.js"></script>
+        <script type="text/javascript" src="js/services/hexCanvas.js"></script>
+        <script type="text/javascript" src="js/services/theme.js"></script>
+        <script type="text/javascript" src="js/services/visualizerCanvas.js"></script>
+
+</head>
+
+<body data-ng-controller="hexController" data-ng-style="themeService.themes[themeService.themeIndex].main">
+
+    <canvas class="visualizerCanvas fullScreen"></canvas>
+    <canvas class="hexCanvas fullScreen"></canvas>
+    <div class="menu"></div>
+    <div class="copier" data-ng-show="copierVisible"></div>
+    <div class="helpWindow" data-ng-show="helpWindowVisible"></div>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-53841802-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+</body>
+</html>
