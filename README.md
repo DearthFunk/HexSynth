@@ -1,4 +1,4 @@
 # HexSynth 
-DearthFunk.com
+Live Sample: http://hexsynth.DearthFunk.com
 
 TODO:
