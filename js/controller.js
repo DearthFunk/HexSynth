@@ -6,7 +6,8 @@ angular.module('hexSynth', [
         "visualizerServiceModule",
         "knobElement",
         "sliderVerticalElement",
-        "dropDownElement",
+
+		"dropDownElementModule",
         "helpWindowModule",
         "synthControlsModule",
         "copierModule",

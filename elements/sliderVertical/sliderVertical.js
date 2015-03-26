@@ -6,8 +6,8 @@ angular.module('sliderVerticalElement', [])
             templateUrl:'elements/sliderVertical/sliderVertical.html',
             replace: true,
             scope: {
-                sliderValue: "=sliderValue",
-                callBack: "=callBack"
+                sliderValue: '=sliderValue',
+                callBack: '=callBack'
             },
             link: function(scope,element) {
 

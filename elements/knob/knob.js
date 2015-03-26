@@ -4,12 +4,12 @@ angular.module('knobElement', [])
         return {
             restrict:'C',
             scope: {
-                size: "=size",
-                label: "=label",
-                callBack: "=callBack",
-                minValue: "=minValue",
-                maxValue: "=maxValue",
-                knobValue: "=knobValue"
+                size: '=size',
+                label: '=label',
+                callBack: '=callBack',
+                minValue: '=minValue',
+                maxValue: '=maxValue',
+                knobValue: '=knobValue'
             },
             template:'<canvas data-ng-dblclick="resetToOriginal()" data-ng-mousedown="startMovingKnob($event)"></canvas>',
             replace: true,
@@ -25,10 +25,10 @@ angular.module('knobElement', [])
                 var maxValue =  typeof scope.maxValue   == 'undefined' ? 1 : scope.maxValue;
                 var resetValue = Math.round(scope.knobValue * decimalPercision) / decimalPercision;
                 var cnvs = element[0];
-                var ctx = cnvs.getContext("2d");
+                var ctx = cnvs.getContext('2d');
                 cnvs.style.width = scope.size +'px';
                 cnvs.style.height = scope.size + 'px';
-                angular.element(cnvs).attr({width:  scope.size + "px",height: scope.size + "px"});
+                angular.element(cnvs).attr({width:  scope.size + 'px',height: scope.size + 'px'});
 	            var rotationValue = (scope.knobValue - minValue) / (maxValue - minValue);
 	            var lastValue = rotationValue;
 
@@ -42,29 +42,29 @@ angular.module('knobElement', [])
                     if (typeof scope.label != 'undefined') {
                         ctx.beginPath();
                         ctx.textAlign = 'center';
-                        ctx.fillStyle = "#FFFFFF";
-                        ctx.font = "13px Calibri";
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.font = '13px Calibri';
                         ctx.fillText(scope.label,scope.size/2,scope.size/2+ 4);
                         ctx.closePath();
                     }
                     ctx.beginPath();
-                    ctx.strokeStyle = "rgba(255,255,255,0.5)";
+                    ctx.strokeStyle = 'rgba(255,255,255,0.5)';
                     ctx.lineWidth = 1;
                     ctx.arc(scope.size/2,scope.size/2,scope.size/2 - 3,0,Math.PI*2,false);
                     ctx.stroke();
                     ctx.closePath();
 
                     ctx.beginPath();
-                    ctx.strokeStyle = "#FFFF00";
+                    ctx.strokeStyle = '#FFFF00';
                     ctx.lineWidth = 7;
-                    ctx.lineCap = "butt";
+                    ctx.lineCap = 'butt';
                     ctx.arc(scope.size/2,scope.size/2,scope.size/2 - 10, 0, Math.PI*2 * (rotationValue),false);
                     ctx.stroke();
                     ctx.closePath();
                 }
                 eraseAndDrawCanvas();
 
-				scope.$watch("knobValue", function(newValue, oldValue){
+				scope.$watch('knobValue', function(newValue, oldValue){
 					if(newValue == oldValue){ return; }
 					rotationValue = (scope.knobValue - minValue) / (maxValue - minValue);
                     scope.callBack.toRun();
