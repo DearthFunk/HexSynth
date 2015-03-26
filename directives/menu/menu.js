@@ -1,67 +1,79 @@
-angular.module('menuModule', [])
+angular
+	.module('menuModule', [])
+    .directive('menu', menu);
 
-    .directive('menu', function ($timeout,$rootScope,themeService,eventService,audioService,hexCanvasService,visualizerCanvasService) {
-        return {
-            restrict:'C',
-            templateUrl:'directives/menu/menu.html',
-            replace: true,
-            link: function(scope)	{
+	menu.$inject = ['$timeout','$rootScope','themeService','eventService','audioService','hexCanvasService','visualizerCanvasService'];
 
-                scope.themeService = themeService;
-                scope.eventService = eventService;
-                scope.audioService = audioService;
-                scope.hexCanvasService = hexCanvasService;
-                scope.visualizerCanvasService = visualizerCanvasService;
+	function menu () {
+		return {
+			restrict: 'EA',
+			templateUrl: 'directives/menu/menu.html',
+			replace: true,
+			link: menuLink
+		}
+	}
 
-                scope.updateVolume = {
-                    toRun: function(x) {
-                        audioService.changeVolume(x);
-                    }
-                };
-                scope.updateSize = {
-                    toRun: function(x,firstLoad) {
-                        if (!firstLoad) {
-                            hexCanvasService.recalculateAndDrawHexes(true);
-                        }
-                    }
-                };
+	menuLink.$inject = ['scope'];
 
-                scope.helpButton = function() {
-                    scope.helpWindowVisible = !scope.helpWindowVisible;
-                    scope.copierVisible = false;
-                };
+    function menuLink(scope,$timeout,$rootScope,themeService,eventService,audioService,hexCanvasService,visualizerCanvasService) {
 
-                scope.copierButton = function() {
-                    scope.copierVisible = !scope.copierVisible;
-                    scope.helpWindowVisible = false;
-                    var data = JSON.stringify(getStorageInfo(audioService,themeService,eventService,visualizerCanvasService,hexCanvasService));
-                    $rootScope.$broadcast("importExport",data);
-                };
+	    scope.themeService = themeService;
+	    scope.eventService = eventService;
+	    scope.audioService = audioService;
+	    scope.hexCanvasService = hexCanvasService;
+	    scope.visualizerCanvasService = visualizerCanvasService;
 
-                scope.changeTheme = function(index) {
-                    themeService.themeIndex = index;
-                    hexCanvasService.recalculateAndDrawHexes(true);
-                };
+	    console.log(audioService);
+	    scope.helpButton = helpButton;
+	    scope.copierButton = copierButton;
+	    scope.changeTheme = changeTheme;
+	    scope.changeSynth = changeSynth;
+	    scope.resetSynth = resetSynth;
 
-                scope.changeSynth = function(index) {
-                    audioService.synthIndex = index;
-                    audioService.updateSynthValues();
-                    visualizerCanvasService.clearCanvas();
-                };
+	    scope.updateVolume = {
+		    toRun: function (x) {
+			    audioService.changeVolume(x);
+		    }
+	    };
+	    scope.updateSize = {
+		    toRun: function (x, firstLoad) {
+			    if (!firstLoad) {
+				    hexCanvasService.recalculateAndDrawHexes(true);
+			    }
+		    }
+	    };
 
-                scope.resetSynth = function(index) {
-                    audioService.synthTemplates[index] = deepCopy(synthTemplates[index]);
-                    scope.resetIndex = index;
-                    audioService.updateSynthValues();
-                    $timeout(function() {
-                        scope.resetIndex = -1;
-                    },400)
-                }
+	    ////////////////////////////////////////////////////////
 
+	    function helpButton() {
+		    scope.helpWindowVisible = !scope.helpWindowVisible;
+		    scope.copierVisible = false;
+	    }
 
+	    function copierButton() {
+		    scope.copierVisible = !scope.copierVisible;
+		    scope.helpWindowVisible = false;
+		    var data = JSON.stringify(getStorageInfo(audioService, themeService, eventService, visualizerCanvasService, hexCanvasService));
+		    $rootScope.$broadcast("importExport", data);
+	    }
 
+	    function changeTheme(index) {
+		    themeService.themeIndex = index;
+		    hexCanvasService.recalculateAndDrawHexes(true);
+	    }
 
+	    function changeSynth(index) {
+		    audioService.synthIndex = index;
+		    audioService.updateSynthValues();
+		    visualizerCanvasService.clearCanvas();
+	    }
 
-            }
-        }
-    });
+	    function resetSynth(index) {
+		    audioService.synthTemplates[index] = deepCopy(synthTemplates[index]);
+		    scope.resetIndex = index;
+		    audioService.updateSynthValues();
+		    $timeout(function () {
+			    scope.resetIndex = -1;
+		    }, 400)
+	    }
+    }

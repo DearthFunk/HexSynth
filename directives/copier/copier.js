@@ -1,35 +1,46 @@
-angular.module('copierModule', [])
+angular
+	.module('copierModule', [])
+    .directive('copier', copier);
 
-    .directive('copier', function ($rootScope,audioService,themeService,eventService,visualizerCanvasService,hexCanvasService) {
-        return {
-            restrict:'C',
-            templateUrl:'directives/copier/copier.html',
-            replace: true,
-            link: function(scope)	{
+	copier.$inject = [];
 
+	function copier() {
+		return {
+			restrict: 'EA',
+			templateUrl: 'directives/copier/copier.html',
+			replace: true,
+			link: copierLink
+		}
+	}
 
-                var client = new ZeroClipboard( document.getElementById("copyButton") );
-                scope.textAreaData = '';
+	copierLink.$inject = ['scope', 'audioService', 'themeService', 'eventService', 'visualizerCanvasService', 'hexCanvasService'];
 
-                scope.$on("importExport",function(event,data){
-                    scope.textAreaData = data;
-                });
+	function copierLink(scope, audioService,themeService,eventService,visualizerCanvasService,hexCanvasService) {
 
-                scope.importData = function() {
-                    var parsedData = JSON.parse(scope.textAreaData);
-                    if (parsedData != null){
-                        audioService.synthIndex = parsedData.synthIndex;
-                        audioService.synthTemplates = deepCopy(parsedData.synthTemplates);
-                        themeService.themeIndex = parsedData.themeIndex;
-                        eventService.controlsIndex = parsedData.controlsIndex;
-                        visualizerCanvasService.visualizerIndex = parsedData.visualizerIndex;
-                        audioService.volume = parsedData.volume;
-                        hexCanvasService.hexSize = parsedData.hexSize;
-                        hexCanvasService.recalculateAndDrawHexes(true);
-                    }
-                    scope.copierVisible = !scope.copierVisible;
-                }
+		var client = new ZeroClipboard(document.getElementById("copyButton"));
+		scope.textAreaData = '';
+		scope.importData = importData;
+		scope.importExport = importExport;
+		scope.$on("importExport", scope.importExport);
 
-            }
-        }
-    });
+		/////////////////////////////////////////////
+
+		function importExport(e,data) {
+			scope.textAreaData = data;
+		}
+
+		function importData() {
+			var parsedData = JSON.parse(scope.textAreaData);
+			if (parsedData != null) {
+				audioService.synthIndex = parsedData.synthIndex;
+				audioService.synthTemplates = deepCopy(parsedData.synthTemplates);
+				themeService.themeIndex = parsedData.themeIndex;
+				eventService.controlsIndex = parsedData.controlsIndex;
+				visualizerCanvasService.visualizerIndex = parsedData.visualizerIndex;
+				audioService.volume = parsedData.volume;
+				hexCanvasService.hexSize = parsedData.hexSize;
+				hexCanvasService.recalculateAndDrawHexes(true);
+			}
+			scope.copierVisible = !scope.copierVisible;
+		}
+	}

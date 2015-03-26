@@ -1,4 +1,5 @@
-angular.module('dropDownModule', [])
+angular
+	.module('dropDownModule', [])
     .directive('dropDown', dropDown);
 
 	dropDown.$inject = [];

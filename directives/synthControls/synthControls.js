@@ -1,29 +1,36 @@
-angular.module('synthControlsModule', [])
+angular
+	.module('synthControlsModule', [])
+    .directive('synthControls', synthControls)
 
-    .directive('synthControls', function (audioService) {
-        return {
-            restrict:'C',
-            templateUrl:'directives/synthControls/synthControls.html',
-            replace: true,
-            link: function(scope) {
+	synthControls.$inject = [];
 
-                scope.resetIndex = -1;
-                scope.audioService = audioService;
-                scope.oscWaveTypes = oscWaveTypes;
+	function synthControls() {
+		return {
+			restrict: 'EA',
+			templateUrl: 'directives/synthControls/synthControls.html',
+			replace: true,
+			link: synthControlsLink
+		}
+	}
 
-                scope.callBack = {
-                    toRun: function() {
-                        audioService.updateSynthValues();
-                    }
-                };
-                scope.updateWaveType = {
-                    toRun:function(index,item) {
-                        audioService.synthTemplates[audioService.synthIndex].controls.oscillators.type[index] = item;
-                        audioService.updateSynthValues();
+	synthControlsLink.$inject = ['scope', 'audioservice'];
 
-                    }
-                }
+	function synthControlsLink(scope, audioService) {
 
-            }
-        }
-    });
+		scope.resetIndex = -1;
+		scope.audioService = audioService;
+		scope.oscWaveTypes = oscWaveTypes;
+
+		scope.callBack = {
+			toRun: function () {
+				audioService.updateSynthValues();
+			}
+		};
+		scope.updateWaveType = {
+			toRun: function (index, item) {
+				//audioService.synthTemplates[audioService.synthIndex].controls.oscillators.type[index] = item;
+				audioService.updateSynthValues();
+
+			}
+		}
+	}

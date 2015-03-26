@@ -1,5 +1,5 @@
-angular.module('sliderVerticalModule', [])
-
+angular
+	.module('sliderVerticalModule', [])
     .directive('sliderVertical', sliderVertical);
 
 	sliderVertical.$inject = [];

@@ -1,5 +1,5 @@
-angular.module('knobModule', [])
-
+angular
+	.module('knobModule', [])
     .directive('knob', knob);
 
 	knob.$inject = [];
