@@ -27,6 +27,7 @@
     <!--LIBRARIES------------------------------------------------------------------------------------------------------>
         <script type="text/javascript" src="lib/angular/angular.js"></script>
         <script type="text/javascript" src="lib/tuna/tuna.js"></script>
+
         <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
         <script type="text/javascript" src="lib/zeroClipboard/ZeroClipboard.js"></script>
 
@@ -39,16 +40,16 @@
     <!--ELEMENTS------------------------------------------------------------------------------------------------------->
         <script type="text/javascript" src="elements/knob/knob.directive.js"></script>
         <script type="text/javascript" src="elements/dropDown/dropDown.directive.js"></script>
-        <link rel="stylesheet" href="elements/dropDown/dropDown.css">
+        <link rel="stylesheet/less" href="elements/dropDown/dropDown.less">
         <script type="text/javascript" src="elements/sliderVertical/sliderVertical.directive.js"></script>
-        <link rel="stylesheet" href="elements/sliderVertical/sliderVertical.css">
+        <link rel="stylesheet/less" href="elements/sliderVertical/sliderVertical.less">
         <script type="text/javascript" src="elements/knob/knob.directive.js"></script>
 
     <!--DIRECTIVES----------------------------------------------------------------------------------------------------->
         <script type="text/javascript" src="directives/menu/menu.js"></script>
         <link rel="stylesheet" href="directives/menu/menu.css">
         <script type="text/javascript" src="directives/synthControls/synthControls.js"></script>
-        <link rel="stylesheet" href="directives/synthControls/synthControls.css">
+        <link rel="stylesheet/less" href="directives/synthControls/synthControls.less">
         <script type="text/javascript" src="directives/copier/copier.js"></script>
         <link rel="stylesheet" href="directives/copier/copier.css">
         <script type="text/javascript" src="directives/helpWindow/helpWindow.js"></script>
@@ -61,6 +62,7 @@
         <script type="text/javascript" src="js/services/theme.service.js"></script>
         <script type="text/javascript" src="js/services/visualizerCanvas.service.js"></script>
 
+    <script type="text/javascript" src="lib/less.js"></script>
 </head>
 
 <body data-ng-controller="hexController" data-ng-style="themeService.themes[themeService.themeIndex].main">
