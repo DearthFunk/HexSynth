@@ -10,7 +10,7 @@ angular.module('hexSynth', [
 	//element directives
 	'sliderVerticalModule',
 	'dropDownModule',
-	'knobElement',
+	'knobModule',
 
 	//directives
 	'helpWindowModule',
