@@ -1,0 +1,47 @@
+div.helpWindowContainer {
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+
+	> div.inner {
+		position: absolute;
+		border: 1px solid white;
+		background-color: #000000;
+		color: #FFFFFF;
+		left: 50%;
+		top: 50%;
+		z-index: 100;
+		height: 400px;
+		margin-top: -200px;
+		width: 600px;
+		margin-left: -300px;
+		box-sizing: border-box;
+		box-shadow: 1px 1px 1px rgba(255,255,255,0.5);
+
+		> i {
+			cursor: pointer;
+			position: absolute;
+			top: 1px;
+			right: 3px;
+			font-size: 14px;
+		}
+
+		> div.contents {
+			font-size: 15px;
+			color: #000000;
+			border: 1px solid #444444;
+			padding: 10px;
+			background-color: rgba(255,255,255,0.9);
+			margin: 15px;
+			height: 345px;
+			overflow-y: scroll;
+
+			> span {
+				font-weight: bold;
+				font-size: 16px;
+			}
+		}
+	}
+}
