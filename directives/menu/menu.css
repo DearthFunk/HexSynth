@@ -83,16 +83,14 @@ div.menuContainer {
                 text-align: center;
             }
 
-
-
-                div.menuContainer > div.middle > div.panel div.sliderVertical{
+                div.menuContainer > div.middle > div.panel div.slider{
                     margin: 4px 0;
                 }
 
-                div.menuContainer > div.middle > div.panel.left > div.sliderVertical {
+                div.menuContainer > div.middle > div.panel.left > div.slider {
                     height: 207px;
                 }
-                div.menuContainer > div.middle > div.panel.middle > div.sliderVertical {
+                div.menuContainer > div.middle > div.panel.middle > div.slider {
                     height: 207px;
                 }
 

@@ -1,18 +1,23 @@
 angular.module('hexSynth', [
-        'audioServiceModule',
-        'eventServiceModule',
-        'hexCanvasServiceModule',
-        'themeServiceModule',
-        'visualizerServiceModule',
-        'knobElement',
-        'sliderVerticalElement',
 
-		'dropDownElementModule',
-        'helpWindowModule',
-        'synthControlsModule',
-        'copierModule',
-        'menuModule'
-    ])
+	//services
+    'audioServiceModule',
+    'eventServiceModule',
+    'hexCanvasServiceModule',
+    'themeServiceModule',
+    'visualizerServiceModule',
+
+	//element directives
+	'sliderVerticalModule',
+	'dropDownModule',
+	'knobElement',
+
+	//directives
+	'helpWindowModule',
+	'synthControlsModule',
+	'copierModule',
+	'menuModule'
+])
 
     .controller('hexController',
         function hexController( $scope , themeService ){

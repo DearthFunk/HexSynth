@@ -1,9 +1,9 @@
-angular.module('dropDownElementModule', [])
-    .directive('dropDownElement', dropDownElement);
+angular.module('dropDownModule', [])
+    .directive('dropDown', dropDown);
 
-	dropDownElement.$inject = [];
+	dropDown.$inject = [];
 
-	function dropDownElement() {
+	function dropDown() {
 		return {
 			restrict: 'EA',
 			scope: {
@@ -14,13 +14,13 @@ angular.module('dropDownElementModule', [])
 			},
 			templateUrl: 'elements/dropDown/dropDown.html',
 			replace: true,
-			link: link
+			link: dropDownLink
 		}
 	}
 
-	link.$inject = ['scope'];
+	dropDownLink.$inject = ['scope'];
 
-	function link(scope) {
+	function dropDownLink(scope) {
 
 		var adjust = 4;
 		scope.expanded = false;

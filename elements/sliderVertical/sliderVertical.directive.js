@@ -1,69 +1,89 @@
-angular.module('sliderVerticalElement', [])
+angular.module('sliderVerticalModule', [])
 
-    .directive('sliderVertical', function(audioService) {
-        return {
-            restrict:'C',
-            templateUrl:'elements/sliderVertical/sliderVertical.html',
-            replace: true,
-            scope: {
-                sliderValue: '=sliderValue',
-                callBack: '=callBack'
-            },
-            link: function(scope,element) {
+    .directive('sliderVertical', sliderVertical);
 
-	            scope.height = element[0].getBoundingClientRect().height;
-	            var sliding, startY, originalY, newValue;
-	            var lastValue = scope.sliderValue;
-	            var startingValue = scope.sliderValue;
-	            var xMin = 0;
+	sliderVertical.$inject = [];
 
-                scope.getSliderValue = function(){
-                    if(scope.sliderValue > 1){ scope.sliderValue = 1; }
-                    if(scope.sliderValue < 0){ scope.sliderValue = 0; }
-                    return scope.sliderValue;
-                };
+	function sliderVertical() {
+		return {
+			restrict: 'EA',
+			templateUrl: 'elements/sliderVertical/sliderVertical.html',
+			replace: true,
+			scope: {
+				sliderValue: '=sliderValue',
+				callBack: '=callBack'
+			},
+			link: sliderVerticalLink
+		}
+	}
 
-				scope.resetToOriginal = function() {
-					scope.sliderValue = startingValue;
-                    scope.callBack.toRun(1);
-				};
+	sliderVerticalLink.$inject = ['scope', 'element'];
 
-                scope.startMovingSlider = function(event) {
-                    sliding = true;
-                    startY = event.clientY;
-                    newValue = parseInt(scope.sliderValue * scope.height);
-                    originalY = newValue;
-                };
+	function sliderVerticalLink(scope,element) {
 
-	            scope.movePos = function(e) {
-		            if (!sliding) {
-			            scope.sliderValue = (e.clientY - element[0].getBoundingClientRect().top) / scope.height;
-                        scope.callBack.toRun(1 - (roundedNumber(scope.sliderValue,1)));
-			            scope.startMovingSlider(e);
-		            }
-	            };
+		var sliding, startY, originalY, newValue;
+		var lastValue = scope.sliderValue;
+		var startingValue = scope.sliderValue;
 
-	            scope.$on('mouseUpEvent', function() {
-                    sliding = false;
-                });
+		scope.elemSize = element[0].getBoundingClientRect();
+		scope.getSliderValue = getSliderValue;
+		scope.resetToOriginal = resetToOriginal;
+		scope.startMovingSlider = startMovingSlider;
+		scope.movePos = movePos;
+		scope.mouseUpEvent = mouseUpEvent;
+		scope.mouseMoveEvent = mouseMoveEvent;
 
-                scope.$on('mouseMoveEvent', function(event, args) {
-                    if(sliding){
-                        var newLeft = originalY - startY + args.clientY;
+		scope.$on('mouseUpEvent', scope.mouseUpEvent);
+		scope.$on('mouseMoveEvent', scope.mouseMoveEvent);
 
-                        if(newLeft < xMin){ newLeft = xMin; scope.sliderValue = 0;}
-                        if(newLeft > scope.height){ newLeft = scope.height; scope.sliderValue = 1;}
-                        newValue = newLeft;
+		///////////////////////////////////////////////////////////////////
 
-                        //prevents calling action when the value does not change
-                        if(lastValue != newValue){
-                            scope.sliderValue = ((newValue - xMin) / (scope.height - xMin));
-                            scope.callBack.toRun(1 - (roundedNumber(scope.sliderValue,1)));
-                            lastValue = newValue;
-                        }
-                    }
-                });
+		function getSliderValue() {
+			return scope.sliderValue > 1 ? 1 : scope.sliderValue < 0 ? 0 : scope.sliderValue;
+		}
 
-            }
-        }
-    });
+		function resetToOriginal() {
+			scope.sliderValue = startingValue;
+			scope.callBack.toRun(1);
+		}
+
+		function startMovingSlider(e) {
+			sliding = true;
+			startY = e.clientY;
+			newValue = parseInt(scope.sliderValue * scope.elemSize.height);
+			originalY = newValue;
+		}
+
+		function movePos(e) {
+			if (sliding) {return false;}
+			scope.sliderValue = (e.clientY - scope.elemSize.top) / scope.elemSize.height;
+			scope.callBack.toRun(1 - (roundedNumber(scope.sliderValue, 1)));
+			scope.startMovingSlider(e);
+		}
+
+		function mouseUpEvent() {
+			sliding = false;
+		}
+
+		function mouseMoveEvent(e, args) {
+			if (!sliding) {return false;}
+			var newHeight = originalY - startY + args.clientY;
+
+			if (newHeight < 0) {
+				newHeight = 0;
+				scope.sliderValue = 0;
+			}
+			if (newHeight > scope.elemSize.height) {
+				newHeight = scope.elemSize.height;
+				scope.sliderValue = 1;
+			}
+			newValue = newHeight;
+
+			//prevents calling action when the value does not change
+			if (lastValue != newValue) {
+				scope.sliderValue = newValue / scope.elemSize.height;
+				scope.callBack.toRun(1 - (roundedNumber(scope.sliderValue, 1)));
+				lastValue = newValue;
+			}
+		}
+	}

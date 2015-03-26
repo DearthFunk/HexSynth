@@ -4,11 +4,11 @@
     <div class="animation middle" data-ng-hide="showHelpScreen">
         <div class="panel border left">
             <span class="title">VOL</span>
-            <div class="sliderVertical" data-slider-value="audioService.volume" data-call-back="updateVolume"></div>
+            <div slider-vertical class="slider" data-slider-value="audioService.volume" data-call-back="updateVolume"></div>
         </div>
         <div class="panel border middle">
             <span class="title">SIZE</span>
-            <div class="sliderVertical" data-slider-value="hexCanvasService.hexSize" data-call-back="updateSize"></div>
+            <div slider-vertical class="slider" data-slider-value="hexCanvasService.hexSize" data-call-back="updateSize"></div>
         </div>
 
         <div class="panel right" data-ng-hide="showHelpScreen">
