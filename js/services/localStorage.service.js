@@ -16,5 +16,22 @@ angular.module('localStorageServiceModule', [])
 			localStorageServiceScope.storage = false;
 		}
 
+
+
+		localStorageServiceScope.getStorageInfo = function (audioService,themeService,eventService,visualizerCanvasService,hexCanvasService) {
+			return {
+				active: false,
+				volume: audioService.volume,
+				hexSize: hexCanvasService.hexSize,
+				synthIndex: audioService.synthIndex,
+				themeIndex: themeService.themeIndex,
+				controlsIndex: eventService.controlsIndex,
+				visualizerIndex: visualizerCanvasService.visualizerIndex,
+				synthTemplates: angular.copy(audioService.synthTemplates)
+			};
+		}
+
+
+
 	});
 

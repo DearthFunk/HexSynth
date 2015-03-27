@@ -24,7 +24,7 @@ angular.module('eventServiceModule', [])
                     visualizerCanvasService.windowResize();
                 };
                 $window.onbeforeunload = function(){
-                    var hexSynthDearthFunkSaveObject = getStorageInfo(audioService,themeService,eventService,visualizerCanvasService,hexCanvasService);
+                    var hexSynthDearthFunkSaveObject = localStorageService.getStorageInfo(audioService,themeService,eventService,visualizerCanvasService,hexCanvasService);
 
                    localStorage.setItem('hexSynthDearthFunkSaveObject', JSON.stringify(hexSynthDearthFunkSaveObject));
                 };

@@ -19,9 +19,9 @@ angular
 		return directive;
 	}
 
-	sliderController.$inject = ['$scope', '$element'];
+	sliderController.$inject = ['$scope', '$element', 'mathService'];
 
-	function sliderController($scope,$element) {
+	function sliderController($scope,$element,mathService) {
 		var sliding, startY, originalY, newValue;
 		var lastValue = $scope.sliderValue;
 		var startingValue = $scope.sliderValue;
@@ -58,7 +58,7 @@ angular
 		function movePos(e) {
 			if (sliding) {return false;}
 			$scope.sliderValue = (e.clientY - $scope.elemSize.top) / $scope.elemSize.height;
-			$scope.callBack.toRun(1 - (roundedNumber($scope.sliderValue, 1)));
+			$scope.callBack.toRun(1 - (mathService.roundedNumber($scope.sliderValue, 1)));
 			$scope.startMovingSlider(e);
 		}
 
@@ -83,7 +83,7 @@ angular
 			//prevents calling action when the value does not change
 			if (lastValue != newValue) {
 				$scope.sliderValue = newValue / $scope.elemSize.height;
-				$scope.callBack.toRun(1 - (roundedNumber($scope.sliderValue, 1)));
+				$scope.callBack.toRun(1 - (mathService.roundedNumber($scope.sliderValue, 1)));
 				lastValue = newValue;
 			}
 		}

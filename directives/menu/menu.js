@@ -15,9 +15,9 @@ angular
 		return directive;
 	}
 
-	menuController.$inject = ['$scope','$timeout','$rootScope','themeService','eventService','audioService','hexCanvasService','visualizerCanvasService', 'SYNTH_DEFAULT_TEMPLATES'];
+	menuController.$inject = ['$scope','$timeout','$rootScope','themeService','eventService','audioService','hexCanvasService','visualizerCanvasService', 'SYNTH_DEFAULT_TEMPLATES', 'localStorageService'];
 
-    function menuController($scope,$timeout,$rootScope,themeService,eventService,audioService,hexCanvasService,visualizerCanvasService, SYNTH_DEFAULT_TEMPLATES) {
+    function menuController($scope,$timeout,$rootScope,themeService,eventService,audioService,hexCanvasService,visualizerCanvasService, SYNTH_DEFAULT_TEMPLATES, localStorageService) {
 
 	    $scope.themeService = themeService;
 	    $scope.eventService = eventService;
@@ -55,7 +55,7 @@ angular
 	    function copierButton() {
 		    $scope.copierVisible = !$scope.copierVisible;
 		    $scope.helpWindowVisible = false;
-		    var data = JSON.stringify(getStorageInfo(audioService, themeService, eventService, visualizerCanvasService, hexCanvasService));
+		    var data = JSON.stringify(localStorageService.getStorageInfo(audioService, themeService, eventService, visualizerCanvasService, hexCanvasService));
 		    $rootScope.$broadcast("importExport", data);
 	    }
 

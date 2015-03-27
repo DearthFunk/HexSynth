@@ -1,5 +1,5 @@
 angular.module('visualizerServiceModule', [])
-    .service("visualizerCanvasService", function($window, $timeout, $rootScope,themeService, hexCanvasService,eventService, audioService, localStorageService, browserService){
+    .service("visualizerCanvasService", function($window, $timeout, $rootScope,themeService, hexCanvasService,eventService, audioService, localStorageService, browserService, mathService){
 
 
         var cnv = document.querySelectorAll('.visualizerCanvas')[0];
@@ -8,6 +8,16 @@ angular.module('visualizerServiceModule', [])
         var visualizerCanvas = this;
         var w, h,xCenter,yCenter = 0;
         var prom;
+
+
+
+		function randomRGBA () {
+			return 'rgba(' +
+				Math.floor(Math.random()*255+1) + ',' +
+				Math.floor(Math.random()*255+1) + ',' +
+				Math.floor(Math.random()*255+1) + ',' +
+				Math.random() + ')';
+		}
 
         visualizerCanvas.visualizerIndex = angular.isObject(localStorageService.storage) ? localStorageService.storage.visualizerIndex : 0;
         visualizerCanvas.visualizers = [
@@ -96,8 +106,8 @@ angular.module('visualizerServiceModule', [])
 
         function newTracerDot () {
             return {
-                r: randomNumber(2,10),
-                speed: randomNumber(0,0.04),
+                r: mathService.randomNumber(2,10),
+                speed: mathService.randomNumber(0,0.04),
                 orbit: Math.random()*10,
                 angle: 0
             }
@@ -113,7 +123,7 @@ angular.module('visualizerServiceModule', [])
                 var activeHex = hexCanvasService.hexGrid.hexes[hexCanvasService.hoverIndex];
                 var distanceFromCenter = Math.sqrt( Math.pow(eventService.events.mouseX - activeHex.centerX, 2) + Math.pow(eventService.events.mouseY - activeHex.centerY, 2) );
                 ctx.fillStyle = "#FFFFFF";
-                if (!isFirefox){ctx.strokeStyle = "#FF0000";}
+                if (!browserService.isFirefox){ctx.strokeStyle = "#FF0000";}
                 tracerAngle += distanceFromCenter/1000;
 
                 for (var cluster = 0; cluster < tracerTotalClusters; cluster++) {
@@ -140,7 +150,7 @@ angular.module('visualizerServiceModule', [])
                                 0, Math.PI*2, true
                             );
                             ctx.fill();
-                            if (!isFirefox){	ctx.stroke(); }
+                            if (!browserService.isFirefox){	ctx.stroke(); }
                             ctx.closePath();
                         }
                     }
@@ -180,11 +190,11 @@ angular.module('visualizerServiceModule', [])
         var balls = [];
         function newBall() {
             return {
-                x: randomNumber(0,w),
+                x: mathService.randomNumber(0,w),
                 y: h+15,
                 r: 15,
-                yX: randomNumber(1,5),
-                rX: randomNumber(0.1,2),
+                yX: mathService.randomNumber(1,5),
+                rX: mathService.randomNumber(0.1,2),
                 color: randomRGBA()
             };
         }

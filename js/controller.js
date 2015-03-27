@@ -4,6 +4,7 @@ angular.module('hexSynth', [
     'audioServiceModule',
     'eventServiceModule',
 	'localStorageServiceModule',
+	'mathServiceModule',
 	'browserServiceModule',
     'hexCanvasServiceModule',
     'themeServiceModule',
