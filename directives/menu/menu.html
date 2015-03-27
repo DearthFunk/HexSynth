@@ -2,14 +2,14 @@
     <div class="button" data-ng-click="helpButton()">HELP / INFO</div>
     <div class="button" data-ng-click="copierButton()">IMPORT / EXPORT</div>
     <div class="animation middle" data-ng-hide="showHelpScreen">
-        <div class="panel border left">
-            <span class="title">VOL</span>
-            <div slider-vertical class="slider" data-slider-value="audioService.volume" data-call-back="updateVolume"></div>
-        </div>
-        <div class="panel border middle">
-            <span class="title">SIZE</span>
-            <div slider-vertical class="slider" data-slider-value="hexCanvasService.hexSize" data-call-back="updateSize"></div>
-        </div>
+	    <div class="panel border left">
+		    <span class="title">VOL</span>
+		    <div slider-vertical class="slider" data-slider-value="audioService.volume" data-call-back="updateVolume"></div>
+	    </div>
+	    <div class="panel border middle">
+		    <span class="title">SIZE</span>
+		    <div slider-vertical class="slider" data-slider-value="hexCanvasService.hexSize" data-call-back="updateSize"></div>
+	    </div>
 
         <div class="panel right" data-ng-hide="showHelpScreen">
             <span class="title">THEMES</span>
@@ -30,6 +30,6 @@
         </div>
     </div>
 
-    <div synth-controls class="animation" data-ng-hide="showHelpScreen"></div>
+	<div synth-controls class="animation" data-ng-hide="showHelpScreen"></div>
 
 </div>

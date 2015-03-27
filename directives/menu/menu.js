@@ -2,40 +2,42 @@ angular
 	.module('menuModule', [])
     .directive('menu', menu);
 
-	menu.$inject = ['$timeout','$rootScope','themeService','eventService','audioService','hexCanvasService','visualizerCanvasService'];
+	menu.$inject = [];
 
 	function menu () {
-		return {
+		var directive = {
 			restrict: 'EA',
 			templateUrl: 'directives/menu/menu.html',
 			replace: true,
-			link: menuLink
-		}
+			controller: menuController,
+			bindToController: true
+		};
+		return directive;
 	}
 
-	menuLink.$inject = ['scope'];
+	menuController.$inject = ['$scope','$timeout','$rootScope','themeService','eventService','audioService','hexCanvasService','visualizerCanvasService'];
 
-    function menuLink(scope,$timeout,$rootScope,themeService,eventService,audioService,hexCanvasService,visualizerCanvasService) {
+    function menuController($scope,$timeout,$rootScope,themeService,eventService,audioService,hexCanvasService,visualizerCanvasService) {
 
-	    scope.themeService = themeService;
-	    scope.eventService = eventService;
-	    scope.audioService = audioService;
-	    scope.hexCanvasService = hexCanvasService;
-	    scope.visualizerCanvasService = visualizerCanvasService;
+	    $scope.themeService = themeService;
+	    $scope.eventService = eventService;
+	    $scope.audioService = audioService;
+	    $scope.hexCanvasService = hexCanvasService;
+	    $scope.visualizerCanvasService = visualizerCanvasService;
 
-	    console.log(audioService);
-	    scope.helpButton = helpButton;
-	    scope.copierButton = copierButton;
-	    scope.changeTheme = changeTheme;
-	    scope.changeSynth = changeSynth;
-	    scope.resetSynth = resetSynth;
 
-	    scope.updateVolume = {
+	    $scope.helpButton = helpButton;
+	    $scope.copierButton = copierButton;
+	    $scope.changeTheme = changeTheme;
+	    $scope.changeSynth = changeSynth;
+	    $scope.resetSynth = resetSynth;
+
+	    $scope.updateVolume = {
 		    toRun: function (x) {
 			    audioService.changeVolume(x);
 		    }
 	    };
-	    scope.updateSize = {
+	    $scope.updateSize = {
 		    toRun: function (x, firstLoad) {
 			    if (!firstLoad) {
 				    hexCanvasService.recalculateAndDrawHexes(true);
@@ -46,13 +48,13 @@ angular
 	    ////////////////////////////////////////////////////////
 
 	    function helpButton() {
-		    scope.helpWindowVisible = !scope.helpWindowVisible;
-		    scope.copierVisible = false;
+		    $scope.helpWindowVisible = !$scope.helpWindowVisible;
+		    $scope.copierVisible = false;
 	    }
 
 	    function copierButton() {
-		    scope.copierVisible = !scope.copierVisible;
-		    scope.helpWindowVisible = false;
+		    $scope.copierVisible = !$scope.copierVisible;
+		    $scope.helpWindowVisible = false;
 		    var data = JSON.stringify(getStorageInfo(audioService, themeService, eventService, visualizerCanvasService, hexCanvasService));
 		    $rootScope.$broadcast("importExport", data);
 	    }
@@ -70,10 +72,10 @@ angular
 
 	    function resetSynth(index) {
 		    audioService.synthTemplates[index] = deepCopy(synthTemplates[index]);
-		    scope.resetIndex = index;
+		    $scope.resetIndex = index;
 		    audioService.updateSynthValues();
 		    $timeout(function () {
-			    scope.resetIndex = -1;
+			    $scope.resetIndex = -1;
 		    }, 400)
 	    }
     }

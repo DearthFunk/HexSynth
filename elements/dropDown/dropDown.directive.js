@@ -5,7 +5,7 @@ angular
 	dropDown.$inject = [];
 
 	function dropDown() {
-		return {
+		var directive = {
 			restrict: 'EA',
 			scope: {
 				list: '=list',
@@ -15,55 +15,56 @@ angular
 			},
 			templateUrl: 'elements/dropDown/dropDown.html',
 			replace: true,
-			link: dropDownLink
-		}
+			controller: dropDownController,
+			bindToController: true
+		};
+		return directive
 	}
 
-	dropDownLink.$inject = ['scope'];
+	dropDownController.$inject = ['$scope'];
 
-	function dropDownLink(scope) {
+	function dropDownController($scope) {
 
 		var adjust = 4;
-		scope.expanded = false;
-		scope.offset = 0;
-		scope.maxListLength = 10;
+		$scope.expanded = false;
+		$scope.offset = 0;
+		$scope.maxListLength = 10;
 
-		scope.toggleExpanded = toggleExpanded;
-		scope.selectValue = selectValue;
-		scope.scroll = scroll;
+		$scope.toggleExpanded = toggleExpanded;
+		$scope.selectValue = selectValue;
+		$scope.scroll = scroll;
 
 		//////////////////////////////////////////////////////////////////
 
 		function toggleExpanded() {
-			scope.expanded = !scope.expanded;
-			if (scope.selected + scope.maxListLength > scope.list.length) {
-				scope.offset = scope.list.length - scope.maxListLength;
+			$scope.expanded = !scope.expanded;
+			if ($scope.selected + $scope.maxListLength > $scope.list.length) {
+				$scope.offset = $scope.list.length - $scope.maxListLength;
 			}
 			else {
-
-				scope.offset = scope.selected;
+				$scope.offset = $scope.selected;
 			}
 		}
 
 		function scroll(directionUP) {
 			directionUP ?
-				scope.offset + scope.maxListLength + adjust < scope.list.length ?
-					scope.offset += adjust :
-					scope.offset = scope.list.length - scope.maxListLength
+				$scope.offset + $scope.maxListLength + adjust < $scope.list.length ?
+					$scope.offset += adjust :
+					$scope.offset = scope.list.length - $scope.maxListLength
 				:
-				scope.offset - adjust < 0 ?
-					scope.offset = 0 :
-					scope.offset -= adjust;
+				$scope.offset - adjust < 0 ?
+					$scope.offset = 0 :
+					$scope.offset -= adjust;
 		}
 
 		function selectValue(index) {
-			scope.expanded = false;
-			scope.selected = index;
-			for (var i = 0; i < scope.list.length; i++) {
-				scope.list[i].DDhovering = false;
+			$scope.expanded = false;
+			$scope.selected = index;
+			for (var i = 0; i < $scope.list.length; i++) {
+				$scope.list[i].DDhovering = false;
 			}
-			if (angular.isDefined(scope.callBack)) {
-				scope.callBack.toRun(scope.returnIndex, index);
+			if (angular.isDefined($scope.callBack)) {
+				$scope.callBack.toRun($scope.returnIndex, index);
 			}
 		}
 	}

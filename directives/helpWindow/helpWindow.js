@@ -5,19 +5,21 @@ angular
 	helpWindow.$inject = [];
 
 	function helpWindow() {
-		return {
+		var directive = {
 			restrict: 'EA',
 			templateUrl: 'directives/helpWindow/helpWindow.html',
 			replace: true,
-			link: helpWindowLink
-		}
+			controller: helpWindowController,
+			bindToController: true
+		};
+		return directive;
 	}
 
-	helpWindowLink.$inject = ['scope'];
+	helpWindowController.$inject = ['$scope'];
 
-	function helpWindowLink(scope)	{
+	function helpWindowController($scope)	{
 
-        scope.preventProp = preventProp;
+		$scope.preventProp = preventProp;
 
 		////////////////////////////////////////////
 

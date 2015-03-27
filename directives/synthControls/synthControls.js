@@ -1,36 +1,37 @@
 angular
 	.module('synthControlsModule', [])
-    .directive('synthControls', synthControls)
+    .directive('synthControls', synthControls);
 
 	synthControls.$inject = [];
 
 	function synthControls() {
-		return {
+		var directive = {
 			restrict: 'EA',
 			templateUrl: 'directives/synthControls/synthControls.html',
 			replace: true,
-			link: synthControlsLink
-		}
+			controller: synthControlsController,
+			bindToController: true
+		};
+		return directive;
 	}
 
-	synthControlsLink.$inject = ['scope', 'audioservice'];
+	synthControlsController.$inject = ['$scope', 'audioService'];
 
-	function synthControlsLink(scope, audioService) {
+	function synthControlsController($scope, audioService) {
 
-		scope.resetIndex = -1;
-		scope.audioService = audioService;
-		scope.oscWaveTypes = oscWaveTypes;
+		$scope.resetIndex = -1;
+		$scope.audioService = audioService;
+		$scope.oscWaveTypes = oscWaveTypes;
 
-		scope.callBack = {
+		$scope.callBack = {
 			toRun: function () {
 				audioService.updateSynthValues();
 			}
 		};
-		scope.updateWaveType = {
+		$scope.updateWaveType = {
 			toRun: function (index, item) {
-				//audioService.synthTemplates[audioService.synthIndex].controls.oscillators.type[index] = item;
+				audioService.synthTemplates[audioService.synthIndex].controls.oscillators.type[index] = item;
 				audioService.updateSynthValues();
-
 			}
 		}
 	}
