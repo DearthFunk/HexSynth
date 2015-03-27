@@ -1,15 +1,21 @@
 angular.module('visualizerServiceModule', [])
-    .service("visualizerCanvasService", function($window, $timeout, $rootScope,themeService, hexCanvasService,eventService, audioService){
+    .service("visualizerCanvasService", function($window, $timeout, $rootScope,themeService, hexCanvasService,eventService, audioService, localStorageService, browserService){
 
 
         var cnv = document.querySelectorAll('.visualizerCanvas')[0];
         var ctx = cnv.getContext("2d");
+		var drawSpeed = 20;
         var visualizerCanvas = this;
         var w, h,xCenter,yCenter = 0;
         var prom;
 
-        visualizerCanvas.visualizerIndex = angular.isObject(hexSynthLocalStorage) ? hexSynthLocalStorage.visualizerIndex : 0;
-        visualizerCanvas.visualizers = visualizers;
+        visualizerCanvas.visualizerIndex = angular.isObject(localStorageService.storage) ? localStorageService.storage.visualizerIndex : 0;
+        visualizerCanvas.visualizers = [
+	        {name:"None",   globalCompositeOperation: "",            clearCanvas:false, functionToRun: false},
+	        {name:"Bubbles",globalCompositeOperation: "lighter",     clearCanvas:true,  functionToRun: "visBubbles"},
+	        {name:"Scope",  globalCompositeOperation: "source-over", clearCanvas:false, functionToRun: "visScope"},
+	        {name:"Tracer",   globalCompositeOperation: "lighter",   clearCanvas:true,  functionToRun: "visTracer"}
+        ];
 
         visualizerCanvas.windowResize = function() {
             w = $window.innerWidth;
@@ -170,7 +176,7 @@ angular.module('visualizerServiceModule', [])
 
 /*---------------------------------------------------------------------------------------------------------BUBBLES----*/
 
-        var totalBalls = isChrome ? 1000 : 100;
+        var totalBalls = browserService.isChrome ? 1000 : 100;
         var balls = [];
         function newBall() {
             return {

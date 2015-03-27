@@ -35,7 +35,7 @@ angular
 			var parsedData = JSON.parse($scope.textAreaData);
 			if (parsedData != null) {
 				audioService.synthIndex = parsedData.synthIndex;
-				audioService.synthTemplates = deepCopy(parsedData.synthTemplates);
+				audioService.synthTemplates = angular.copy(parsedData.synthTemplates);
 				themeService.themeIndex = parsedData.themeIndex;
 				eventService.controlsIndex = parsedData.controlsIndex;
 				visualizerCanvasService.visualizerIndex = parsedData.visualizerIndex;

@@ -15,9 +15,9 @@ angular
 		return directive;
 	}
 
-	menuController.$inject = ['$scope','$timeout','$rootScope','themeService','eventService','audioService','hexCanvasService','visualizerCanvasService'];
+	menuController.$inject = ['$scope','$timeout','$rootScope','themeService','eventService','audioService','hexCanvasService','visualizerCanvasService', 'SYNTH_DEFAULT_TEMPLATES'];
 
-    function menuController($scope,$timeout,$rootScope,themeService,eventService,audioService,hexCanvasService,visualizerCanvasService) {
+    function menuController($scope,$timeout,$rootScope,themeService,eventService,audioService,hexCanvasService,visualizerCanvasService, SYNTH_DEFAULT_TEMPLATES) {
 
 	    $scope.themeService = themeService;
 	    $scope.eventService = eventService;
@@ -71,7 +71,7 @@ angular
 	    }
 
 	    function resetSynth(index) {
-		    audioService.synthTemplates[index] = deepCopy(synthTemplates[index]);
+		    audioService.synthTemplates[index] = angular.copy(SYNTH_DEFAULT_TEMPLATES[index]);
 		    $scope.resetIndex = index;
 		    audioService.updateSynthValues();
 		    $timeout(function () {

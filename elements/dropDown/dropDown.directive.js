@@ -37,7 +37,7 @@ angular
 		//////////////////////////////////////////////////////////////////
 
 		function toggleExpanded() {
-			$scope.expanded = !scope.expanded;
+			$scope.expanded = !$scope.expanded;
 			if ($scope.selected + $scope.maxListLength > $scope.list.length) {
 				$scope.offset = $scope.list.length - $scope.maxListLength;
 			}

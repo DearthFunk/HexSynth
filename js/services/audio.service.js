@@ -1,10 +1,11 @@
 angular.module('audioServiceModule', [])
-    .service("audioService", function(eventService){
+    .service("audioService", function(eventService, localStorageService, OSC_WAVE_TYPES, SYNTH_DEFAULT_TEMPLATES){
 
         var audioCtx = typeof AudioContext !== 'undefined' ?	new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() :	null;
         var audioServiceScope = this;
         var tuna = new Tuna(audioCtx);
         var playing = false;
+		var audioBufferSize = 1024;
 
         var nodeOsc1 = audioCtx.createOscillator();
         var nodeOsc2 = audioCtx.createOscillator();
@@ -38,9 +39,9 @@ angular.module('audioServiceModule', [])
         nodeJavascript.connect(audioCtx.destination);
 
         audioServiceScope.analyser = nodeAnalyser;
-        audioServiceScope.synthTemplates = angular.isObject(hexSynthLocalStorage) ? hexSynthLocalStorage.synthTemplates : deepCopy(synthTemplates);
-        audioServiceScope.synthIndex = angular.isObject(hexSynthLocalStorage) ? hexSynthLocalStorage.synthIndex : 0;
-        audioServiceScope.volume = angular.isObject(hexSynthLocalStorage) ? hexSynthLocalStorage.volume : 0.5;
+        audioServiceScope.synthTemplates = angular.isObject(localStorageService.storage) ? localStorageService.storage.synthTemplates : angular.copy(SYNTH_DEFAULT_TEMPLATES);
+        audioServiceScope.synthIndex = angular.isObject(localStorageService.storage) ? localStorageService.storage.synthIndex : 0;
+        audioServiceScope.volume = angular.isObject(localStorageService.storage) ? localStorageService.storage.volume : 0.5;
 
         nodeOsc1.type = audioServiceScope.synthTemplates[audioServiceScope.synthIndex].controls.oscillators.type[0];
         nodeOsc2.type = audioServiceScope.synthTemplates[audioServiceScope.synthIndex].controls.oscillators.type[1];
@@ -65,9 +66,9 @@ angular.module('audioServiceModule', [])
 
             var data = audioServiceScope.synthTemplates[audioServiceScope.synthIndex].controls;
 
-            nodeOsc1.type = data.oscillators.type[0] == -1 ? "" : oscWaveTypes[data.oscillators.type[0]].type;
-            nodeOsc2.type = data.oscillators.type[1] == -1 ? "" : oscWaveTypes[data.oscillators.type[1]].type;
-            nodeOsc3.type = data.oscillators.type[2] == -1 ? "" : oscWaveTypes[data.oscillators.type[2]].type;
+            nodeOsc1.type = data.oscillators.type[0] === -1 ? '' : OSC_WAVE_TYPES[data.oscillators.type[0]].txt.toLowerCase();
+            nodeOsc2.type = data.oscillators.type[1] === -1 ? '' : OSC_WAVE_TYPES[data.oscillators.type[1]].txt.toLowerCase();
+            nodeOsc3.type = data.oscillators.type[2] === -1 ? '' : OSC_WAVE_TYPES[data.oscillators.type[2]].txt.toLowerCase();
 
             nodeOsc1.detune.value = data.oscillators.detune[0];
             nodeOsc2.detune.value = data.oscillators.detune[1];

@@ -1,13 +1,15 @@
 angular.module('hexCanvasServiceModule', [])
-    .service("hexCanvasService", function($window, $timeout, $rootScope,themeService, eventService, audioService){
+    .service("hexCanvasService", function($window, $timeout, $rootScope,themeService, eventService, audioService, localStorageService){
 
         var hexCanvas = this;
         var w, h, lastHoverIndex = -1;
         var cnv = document.querySelectorAll('.hexCanvas')[0];
         var ctx = cnv.getContext("2d");
+		var hexScreenPadding = 30;
+		var notes = ["A","A '","B","C","C '","D","D '","E","F","F '","G","G '"];
         hexCanvas.hexGrid = {};
         hexCanvas.hoverIndex = -1;
-        hexCanvas.hexSize = angular.isObject(hexSynthLocalStorage) ? hexSynthLocalStorage.hexSize : 0.5;
+        hexCanvas.hexSize = angular.isObject(localStorageService.storage) ? localStorageService.storage.hexSize : 0.5;
 
         hexCanvas.windowResize = function() {
             w = $window.innerWidth;

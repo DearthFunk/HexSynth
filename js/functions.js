@@ -17,7 +17,7 @@ function getStorageInfo(audioService,themeService,eventService,visualizerCanvasS
         themeIndex: themeService.themeIndex,
         controlsIndex: eventService.controlsIndex,
         visualizerIndex: visualizerCanvasService.visualizerIndex,
-        synthTemplates: deepCopy(audioService.synthTemplates)
+        synthTemplates: angular.copy(audioService.synthTemplates)
     };
 
 }
@@ -50,21 +50,3 @@ function roundedNumber(value, precision) {
 		padding = new Array(Math.max(precision - fraction.length, 0) + 1).join('0');
 	return parseFloat(precision ? integral + '.' +  padding + fraction : integral);
 }
-function deepCopy(obj) {
-    if (Object.prototype.toString.call(obj) === '[object Array]') {
-        var out = [], i = 0, len = obj.length;
-        for ( ; i < len; i++ ) {
-            out[i] = arguments.callee(obj[i]);
-        }
-        return out;
-    }
-    if (typeof obj === 'object') {
-        var out = {}, i;
-        for ( i in obj ) {
-            out[i] = arguments.callee(obj[i]);
-        }
-        return out;
-    }
-    return obj;
-}
-

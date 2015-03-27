@@ -10,7 +10,7 @@ angular.module('eventServiceModule', [])
             });
         };
     })
-    .directive('html', function($rootScope,$window, themeService, eventService, audioService, hexCanvasService, visualizerCanvasService){
+    .directive('html', function($rootScope,$window, themeService, eventService, audioService, hexCanvasService, visualizerCanvasService, localStorageService){
         return {
             restrict: 'E',
             link: function(scope,element){
@@ -79,10 +79,27 @@ angular.module('eventServiceModule', [])
         }
     })
 
-    .service("eventService", function($window){
+    .service("eventService", function($window, localStorageService){
         var eventServiceScope = this;
-        eventServiceScope.controls = controls;
-        eventServiceScope.controlsIndex = controlsIndex;
-        eventServiceScope.events = defaultEventValues;
+        eventServiceScope.controls =  [
+	        {   name:"Follower",
+		        bypasses:[65,83,68,90,88,67],
+		        bypassFunctions: ["bitcrusher","overdrive","tremolo","wahwah","phaser","delay"]
+	        },
+	        {   name: "Clicker",
+		        bypasses:[65,83,68,90,88,67],
+		        bypassFunctions: ["bitcrusher","overdrive","tremolo","wahwah","phaser","delay"]
+	        }
+        ];
+        eventServiceScope.controlsIndex = angular.isObject(localStorageService.storage) ? localStorageService.storage.controlsIndex : 0;
+		;
+        eventServiceScope.events = {
+	        mouseX: 0,
+	        mouseY: 0,
+	        mouseDown: false,
+	        keyFx1: false,
+	        keyFx2: false,
+	        keySquare: false
+        };
     });
 
