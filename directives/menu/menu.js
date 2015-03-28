@@ -32,18 +32,18 @@ angular
 	    $scope.changeSynth = changeSynth;
 	    $scope.resetSynth = resetSynth;
 
-	    $scope.updateVolume = {
-		    toRun: function (x) {
-			    audioService.changeVolume(x);
+	    $scope.updateVolume = updateVolume;
+	    $scope.updateSize = updateSize;
+
+	    function updateSize(newVal, firstLoad) {
+		    if (!firstLoad) {
+			    hexCanvasService.recalculateAndDrawHexes(true);
 		    }
-	    };
-	    $scope.updateSize = {
-		    toRun: function (x, firstLoad) {
-			    if (!firstLoad) {
-				    hexCanvasService.recalculateAndDrawHexes(true);
-			    }
-		    }
-	    };
+
+	    }
+	    function updateVolume(newVal) {
+		    audioService.changeVolume(newVal);
+	    }
 
 	    ////////////////////////////////////////////////////////
 

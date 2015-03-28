@@ -45,7 +45,7 @@ angular
 
 		function resetToOriginal() {
 			$scope.sliderValue = startingValue;
-			$scope.callBack.toRun(1);
+			$scope.callBack(1);
 		}
 
 		function startMovingSlider(e) {
@@ -58,7 +58,7 @@ angular
 		function movePos(e) {
 			if (sliding) {return false;}
 			$scope.sliderValue = (e.clientY - $scope.elemSize.top) / $scope.elemSize.height;
-			$scope.callBack.toRun(1 - (mathService.roundedNumber($scope.sliderValue, 1)));
+			$scope.callBack(1 - (mathService.roundedNumber($scope.sliderValue, 1)));
 			$scope.startMovingSlider(e);
 		}
 
@@ -83,7 +83,7 @@ angular
 			//prevents calling action when the value does not change
 			if (lastValue != newValue) {
 				$scope.sliderValue = newValue / $scope.elemSize.height;
-				$scope.callBack.toRun(1 - (mathService.roundedNumber($scope.sliderValue, 1)));
+				$scope.callBack(1 - (mathService.roundedNumber($scope.sliderValue, 1)));
 				lastValue = newValue;
 			}
 		}
