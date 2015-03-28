@@ -46,7 +46,7 @@ angular.module('themeServiceModule', [])
 		        }
 	        },
 	        {
-		        name: "Color PeepShow",
+		        name: "PeepShow",
 		        main:{
 			        backgroundImage: "url('img/background3.jpg')"
 		        },

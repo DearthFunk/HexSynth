@@ -50,7 +50,7 @@ angular
 			directionUP ?
 				$scope.offset + $scope.maxListLength + adjust < $scope.list.length ?
 					$scope.offset += adjust :
-					$scope.offset = scope.list.length - $scope.maxListLength
+					$scope.offset = $scope.list.length - $scope.maxListLength
 				:
 				$scope.offset - adjust < 0 ?
 					$scope.offset = 0 :
