@@ -67,7 +67,6 @@ angular
 	    function changeSynth(index) {
 		    audioService.synthIndex = index;
 		    audioService.updateSynthValues();
-		    visualizerCanvasService.clearCanvas();
 	    }
 
 	    function resetSynth(index) {

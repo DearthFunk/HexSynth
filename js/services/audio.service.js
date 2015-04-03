@@ -146,7 +146,44 @@ angular.module('audioServiceModule', [])
             }
         };
 
-        audioServiceScope.updateSynthValues();
+		audioServiceScope.getFreqArray = getFreqArray;
+		audioServiceScope.getTimeArray = getTimeArray;
+		audioServiceScope.getAverageDB = getAverageDB;
+
+		function getFreqArray(depth,removal) {
+			var theSmallArray = [];
+			var theFreqArray =  new Uint8Array(audioServiceScope.analyser.frequencyBinCount);
+			audioServiceScope.analyser.getByteFrequencyData(theFreqArray);
+			var x = depth == undefined ? 1 : depth;
+			var len = theFreqArray.length - removal;
+			for (var i =0; i < len; i += x) {
+				theSmallArray.push( theFreqArray[i] );
+			}
+			return theSmallArray;
+		}
+		function getTimeArray(depth,removal) {
+			var theSmallArray = [];
+			var theTimeArray  = new Uint8Array(audioServiceScope.analyser.frequencyBinCount);
+			audioServiceScope.analyser.getByteTimeDomainData(theTimeArray);
+			var x = depth == undefined ? 1 : depth;
+			var len = theTimeArray.length - removal;
+			for (var i =0; i < len; i += x) {
+				theSmallArray.push( theTimeArray[i] );
+			}
+			return theSmallArray;
+		}
+		function getAverageDB() {
+			var dbArray = new Uint8Array(audioServiceScope.analyser.frequencyBinCount);
+			audioServiceScope.analyser.getByteFrequencyData(dbArray);
+			var values = 0;
+			for (var i = 0; i < dbArray.length; i++) {
+				values += dbArray[i];
+			}
+			return values / dbArray.length;
+		}
+
+
+		audioServiceScope.updateSynthValues();
 
     }
 
