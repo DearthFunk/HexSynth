@@ -43,7 +43,6 @@ angular.module('audioServiceModule', [])
         nodeJavascript.connect(audioCtx.destination);
 
         audioServiceScope.analyser = nodeAnalyser;
-		console.log(localStorageService);
 
         audioServiceScope.synthTemplates = angular.isObject(localStorageService.storage) ? localStorageService.storage.synthTemplates : angular.copy(SYNTH_DEFAULT_TEMPLATES);
         audioServiceScope.synthIndex = angular.isObject(localStorageService.storage) ? localStorageService.storage.synthIndex : 0;

@@ -1,9 +1,9 @@
 angular.module('visualizerServiceModule', [])
     .service("visualizerCanvasService", visualizerCanvasService);
 
-	visualizerCanvasService.$inject = ['$window', '$timeout', 'hexCanvasService', 'eventService', 'audioService', 'localStorageService', 'browserService', 'mathService'];
+	visualizerCanvasService.$inject = ['$window', '$timeout', 'hexCanvasService', 'eventService', 'audioService', 'localStorageService', 'browserService', 'mathService', 'VisBubbles'];
 
-	function visualizerCanvasService($window, $timeout, hexCanvasService,eventService, audioService, localStorageService, browserService, mathService){
+	function visualizerCanvasService($window, $timeout, hexCanvasService,eventService, audioService, localStorageService, browserService, mathService, VisBubbles){
 
         var cnv = document.querySelectorAll('.visualizerCanvas')[0];
         var ctx = cnv.getContext("2d");
@@ -12,15 +12,21 @@ angular.module('visualizerServiceModule', [])
         var w, h,xCenter,yCenter = 0;
         var prom;
 
+		visualizerCanvas.getFreqArray = getFreqArray;
+		visualizerCanvas.getTimeArray = getTimeArray;
+		visualizerCanvas.getAverageDB = getAverageDB;
 
+		windowResize();
 
-		function randomRGBA () {
-			return 'rgba(' +
-				Math.floor(Math.random()*255+1) + ',' +
-				Math.floor(Math.random()*255+1) + ',' +
-				Math.floor(Math.random()*255+1) + ',' +
-				Math.random() + ')';
-		}
+		visualizerCanvas.visBubbles = new VisBubbles(ctx, w, h);
+
+		visualizerCanvas.visTracer = visTracer;
+		visualizerCanvas.visScope = visScope;
+
+		visualizerCanvas.windowResize = windowResize;
+		visualizerCanvas.clearCanvas = clearCanvas;
+		visualizerCanvas.timer = timer;
+
 
         visualizerCanvas.visualizerIndex = angular.isObject(localStorageService.storage) ? localStorageService.storage.visualizerIndex : 0;
         visualizerCanvas.visualizers = [
@@ -30,45 +36,6 @@ angular.module('visualizerServiceModule', [])
 	        {name:"Tracer",   globalCompositeOperation: "lighter",   clearCanvas:true,  functionToRun: "visTracer"}
         ];
 
-        visualizerCanvas.windowResize = function() {
-            w = $window.innerWidth;
-            h = $window.innerHeight;
-            cnv.style.width = w +'px';
-            cnv.style.height = h + 'px';
-            xCenter = w /2;
-            yCenter = h/ 2;
-            angular.element(cnv).attr({width:  w, height: h	});
-        };
-
-        visualizerCanvas.clearCanvas = function() {
-            ctx.clearRect(0,0, w,h);
-        };
-
-        visualizerCanvas.timer = function() {
-            // clear or redraw canvas and run funciton
-            if(typeof visualizerCanvas[visualizerCanvas.visualizers[visualizerCanvas.visualizerIndex].functionToRun] == 'function'){
-                if (visualizerCanvas.visualizers[visualizerCanvas.visualizerIndex].clearCanvas) {
-                    visualizerCanvas.clearCanvas();
-                }
-                else {
-                    var oldArray = ctx.getImageData(0,0,w,h);
-                    for(var d=3;d<oldArray.data.length;d+=4){//dim it with some feedback, I'm using .9
-                        oldArray.data[d] = Math.floor(oldArray.data[d]*.9);
-                    }
-                    ctx.putImageData(oldArray,0,0);
-                }
-                visualizerCanvas[visualizerCanvas.visualizers[visualizerCanvas.visualizerIndex].functionToRun]();
-            }
-            prom = $timeout(visualizerCanvas.timer, drawSpeed);
-        };
-
-        visualizerCanvas.windowResize();
-        visualizerCanvas.timer();
-
-
-		visualizerCanvas.getFreqArray = getFreqArray;
-		visualizerCanvas.getTimeArray = getTimeArray;
-		visualizerCanvas.getAverageDB = getAverageDB;
 
 
 
@@ -78,6 +45,47 @@ angular.module('visualizerServiceModule', [])
 /*----------------------------------------- VISUALIZERS --------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------*/
+		function timer() {
+			// clear or redraw canvas and run funciton
+			if(typeof visualizerCanvas[visualizerCanvas.visualizers[visualizerCanvas.visualizerIndex].functionToRun] == 'function'){
+				if (visualizerCanvas.visualizers[visualizerCanvas.visualizerIndex].clearCanvas) {
+					visualizerCanvas.clearCanvas();
+				}
+				else {
+					var oldArray = ctx.getImageData(0,0,w,h);
+					for(var d=3;d<oldArray.data.length;d+=4){//dim it with some feedback, I'm using .9
+						oldArray.data[d] = Math.floor(oldArray.data[d]*.9);
+					}
+					ctx.putImageData(oldArray,0,0);
+				}
+				//visualizerCanvas[visualizerCanvas.visualizers[visualizerCanvas.visualizerIndex].functionToRun]();=
+				visualizerCanvas.visBubbles.draw();
+			}
+
+			visualizerCanvas.clearCanvas();
+			visualizerCanvas.visBubbles.draw();
+			prom = $timeout(visualizerCanvas.timer, drawSpeed);
+		};
+		function clearCanvas() {
+			ctx.clearRect(0,0, w,h);
+		};
+		function windowResize() {
+			w = $window.innerWidth;
+			h = $window.innerHeight;
+			cnv.style.width = w +'px';
+			cnv.style.height = h + 'px';
+			xCenter = w /2;
+			yCenter = h/ 2;
+			angular.element(cnv).attr({width:  w, height: h	});
+		}
+		function randomRGBA () {
+			return 'rgba(' +
+				Math.floor(Math.random()*255+1) + ',' +
+				Math.floor(Math.random()*255+1) + ',' +
+				Math.floor(Math.random()*255+1) + ',' +
+				Math.random() + ')';
+		}
+
         function getFreqArray(depth,removal) {
             var theSmallArray = [];
             var theFreqArray =  new Uint8Array(audioService.analyser.frequencyBinCount);
@@ -125,7 +133,8 @@ angular.module('visualizerServiceModule', [])
         var tracerTotalDots = 30;
         var tracerTotalClusters = 6;
         var tracerRadius = 30;
-        visualizerCanvas.visTracer = function() {
+
+		function visTracer() {
             if (hexCanvasService.hoverIndex != -1) {
                 var activeHex = hexCanvasService.hexGrid.hexes[hexCanvasService.hoverIndex];
                 var distanceFromCenter = Math.sqrt( Math.pow(eventService.events.mouseX - activeHex.centerX, 2) + Math.pow(eventService.events.mouseY - activeHex.centerY, 2) );
@@ -164,11 +173,13 @@ angular.module('visualizerServiceModule', [])
                 }
 
             }
-        };
+        }
 
 
 /*---------------------------------------------------------------------------------------------------------SCOPE------*/
-		visualizerCanvas.visScope = function() {
+
+
+		function visScope() {
 			var timeArray = visualizerCanvas.getTimeArray(2,100);
             var barWidth = w / timeArray.length;
 			ctx.beginPath();
@@ -207,7 +218,8 @@ angular.module('visualizerServiceModule', [])
         }
         for (i = 0; i < totalBalls; i++) { balls.push(newBall()); }
 
-		visualizerCanvas.visBubbles = function() {
+
+		function visBubbles() {
             var db = visualizerCanvas.getAverageDB();
             for (var i = 0; i < balls.length; i++) {
                 var ball = balls[i];
@@ -222,6 +234,9 @@ angular.module('visualizerServiceModule', [])
                     ctx.closePath();
                 }
             }
+		}
 
-		};
+
+		timer();
+
 	}
