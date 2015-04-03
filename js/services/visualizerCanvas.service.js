@@ -1,6 +1,9 @@
 angular.module('visualizerServiceModule', [])
-    .service("visualizerCanvasService", function($window, $timeout, $rootScope,themeService, hexCanvasService,eventService, audioService, localStorageService, browserService, mathService){
+    .service("visualizerCanvasService", visualizerCanvasService);
 
+	visualizerCanvasService.$inject = ['$window', '$timeout', 'hexCanvasService', 'eventService', 'audioService', 'localStorageService', 'browserService', 'mathService'];
+
+	function visualizerCanvasService($window, $timeout, hexCanvasService,eventService, audioService, localStorageService, browserService, mathService){
 
         var cnv = document.querySelectorAll('.visualizerCanvas')[0];
         var ctx = cnv.getContext("2d");
@@ -63,6 +66,10 @@ angular.module('visualizerServiceModule', [])
         visualizerCanvas.timer();
 
 
+		visualizerCanvas.getFreqArray = getFreqArray;
+		visualizerCanvas.getTimeArray = getTimeArray;
+		visualizerCanvas.getAverageDB = getAverageDB;
+
 
 
 
@@ -71,7 +78,7 @@ angular.module('visualizerServiceModule', [])
 /*----------------------------------------- VISUALIZERS --------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------*/
-        visualizerCanvas.getFreqArray = function(depth,removal) {
+        function getFreqArray(depth,removal) {
             var theSmallArray = [];
             var theFreqArray =  new Uint8Array(audioService.analyser.frequencyBinCount);
             audioService.analyser.getByteFrequencyData(theFreqArray);
@@ -81,8 +88,8 @@ angular.module('visualizerServiceModule', [])
                 theSmallArray.push( theFreqArray[i] );
             }
             return theSmallArray;
-        };
-		visualizerCanvas.getTimeArray = function(depth,removal) {
+        }
+		function getTimeArray(depth,removal) {
             var theSmallArray = [];
 			var theTimeArray  = new Uint8Array(audioService.analyser.frequencyBinCount);
 			audioService.analyser.getByteTimeDomainData(theTimeArray);
@@ -92,8 +99,8 @@ angular.module('visualizerServiceModule', [])
                 theSmallArray.push( theTimeArray[i] );
             }
 			return theSmallArray;
-		};
-        visualizerCanvas.getAverageDB = function() {
+		}
+        function getAverageDB() {
             var dbArray = new Uint8Array(audioService.analyser.frequencyBinCount);
             audioService.analyser.getByteFrequencyData(dbArray);
             var values = 0;
@@ -101,7 +108,7 @@ angular.module('visualizerServiceModule', [])
                 values += dbArray[i];
             }
             return values / dbArray.length;
-        };
+        }
 /*---------------------------------------------------------------------------------------------------------TRACERS-------*/
 
         function newTracerDot () {
@@ -217,6 +224,4 @@ angular.module('visualizerServiceModule', [])
             }
 
 		};
-	});
-
-
+	}

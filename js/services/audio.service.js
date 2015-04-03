@@ -1,5 +1,9 @@
 angular.module('audioServiceModule', [])
-    .service("audioService", function(eventService, localStorageService, OSC_WAVE_TYPES, SYNTH_DEFAULT_TEMPLATES){
+    .service("audioService", audioService);
+
+	audioService.$inject = ['eventService','localStorageService','OSC_WAVE_TYPES','SYNTH_DEFAULT_TEMPLATES'];
+
+	function audioService (eventService, localStorageService, OSC_WAVE_TYPES, SYNTH_DEFAULT_TEMPLATES){
 
         var audioCtx = typeof AudioContext !== 'undefined' ?	new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() :	null;
         var audioServiceScope = this;
@@ -39,6 +43,8 @@ angular.module('audioServiceModule', [])
         nodeJavascript.connect(audioCtx.destination);
 
         audioServiceScope.analyser = nodeAnalyser;
+		console.log(localStorageService);
+
         audioServiceScope.synthTemplates = angular.isObject(localStorageService.storage) ? localStorageService.storage.synthTemplates : angular.copy(SYNTH_DEFAULT_TEMPLATES);
         audioServiceScope.synthIndex = angular.isObject(localStorageService.storage) ? localStorageService.storage.synthIndex : 0;
         audioServiceScope.volume = angular.isObject(localStorageService.storage) ? localStorageService.storage.volume : 0.5;
@@ -143,5 +149,5 @@ angular.module('audioServiceModule', [])
 
         audioServiceScope.updateSynthValues();
 
-    });
+    }
 

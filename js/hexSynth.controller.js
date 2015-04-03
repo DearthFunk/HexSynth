@@ -14,6 +14,7 @@ angular
 			'dropDownModule',
 			'knobModule',
 		//directives
+			'rightClickModule',
 			'helpWindowModule',
 			'synthControlsModule',
 			'copierModule',

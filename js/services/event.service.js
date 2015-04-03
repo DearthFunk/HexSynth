@@ -1,16 +1,11 @@
-angular.module('eventServiceModule', [])
-    .directive('ngRightClick', function($parse) {
-        return function(scope, element, attrs) {
-            var fn = $parse(attrs.ngRightClick);
-            element.bind('contextmenu', function(event) {
-                scope.$apply(function() {
-                    event.preventDefault();
-                    fn(scope, {$event:event});
-                });
-            });
-        };
-    })
-    .directive('html', function($rootScope,$window, themeService, eventService, audioService, hexCanvasService, visualizerCanvasService, localStorageService){
+angular
+	.module('eventServiceModule', [])
+	.directive('html', html)
+	.factory("eventService", eventService);
+
+	html.$inject = ['$rootScope','$window','themeService','eventService','audioService','hexCanvasService','visualizerCanvasService','localStorageService'];
+
+	function html($rootScope,$window, themeService, eventService, audioService, hexCanvasService, visualizerCanvasService, localStorageService){
         return {
             restrict: 'E',
             link: function(scope,element){
@@ -77,29 +72,33 @@ angular.module('eventServiceModule', [])
                 });
             }
         }
-    })
+    }
 
-    .service("eventService", function($window, localStorageService){
-        var eventServiceScope = this;
-        eventServiceScope.controls =  [
-	        {   name:"Follower",
-		        bypasses:[65,83,68,90,88,67],
-		        bypassFunctions: ["bitcrusher","overdrive","tremolo","wahwah","phaser","delay"]
-	        },
-	        {   name: "Clicker",
-		        bypasses:[65,83,68,90,88,67],
-		        bypassFunctions: ["bitcrusher","overdrive","tremolo","wahwah","phaser","delay"]
+	eventService.$inject = ['localStorageService'];
+
+	function eventService(localStorageService){
+        var service = {
+	        controls: [
+		        {
+			        name: "Follower",
+			        bypasses: [65, 83, 68, 90, 88, 67],
+			        bypassFunctions: ["bitcrusher", "overdrive", "tremolo", "wahwah", "phaser", "delay"]
+		        },
+		        {
+			        name: "Clicker",
+			        bypasses: [65, 83, 68, 90, 88, 67],
+			        bypassFunctions: ["bitcrusher", "overdrive", "tremolo", "wahwah", "phaser", "delay"]
+		        }
+	        ],
+	        controlsIndex: angular.isObject(localStorageService.storage) ? localStorageService.storage.controlsIndex : 0,
+	        events: {
+		        mouseX: 0,
+		        mouseY: 0,
+		        mouseDown: false,
+		        keyFx1: false,
+		        keyFx2: false,
+		        keySquare: false
 	        }
-        ];
-        eventServiceScope.controlsIndex = angular.isObject(localStorageService.storage) ? localStorageService.storage.controlsIndex : 0;
-		;
-        eventServiceScope.events = {
-	        mouseX: 0,
-	        mouseY: 0,
-	        mouseDown: false,
-	        keyFx1: false,
-	        keyFx2: false,
-	        keySquare: false
         };
-    });
-
+		return service;
+	}

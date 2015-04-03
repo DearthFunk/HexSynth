@@ -1,9 +1,14 @@
-angular.module('browserServiceModule', [])
-	.service("browserService", function(){
+angular
+	.module('browserServiceModule', [])
+	.factory("browserService", browserService);
 
-		var browserServiceScope = this;
+	browserService.$inject = [];
 
-		browserServiceScope.browserType = navigator.sayswho= (function(){
+	function browserService(){
+
+		var service = this;
+
+		service.browserType = navigator.sayswho= (function(){
 			var ua= navigator.userAgent, tem,
 				M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
 			if(/trident/i.test(M[1])){
@@ -18,9 +23,11 @@ angular.module('browserServiceModule', [])
 			if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
 			return M;//.join(' ');
 		})();
-		browserServiceScope.isChrome = browserServiceScope.browserType[0] === "Chrome";
-		browserServiceScope.isFirefox = browserServiceScope.browserType[0] === "Firefox";
-		browserServiceScope.isSafari = browserServiceScope.browserType[0] === "Safari";
+		service.isChrome = service.browserType[0] === "Chrome";
+		service.isFirefox = service.browserType[0] === "Firefox";
+		service.isSafari = service.browserType[0] === "Safari";
 
-	});
 
+		return service;
+		
+	}

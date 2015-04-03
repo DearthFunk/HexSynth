@@ -1,18 +1,26 @@
-angular.module('mathServiceModule', [])
-    .service("mathService", function(){
-        var mathServiceScope = this;
+angular
+	.module('mathServiceModule', [])
+    .factory("mathService", mathService);
 
+	function mathService(){
+		var service = {
+			randomNumber: randomNumber,
+			roundedNumber: roundedNumber
+		};
+		return service;
 
-		mathServiceScope.randomNumber = function(from,to,decimals) {
+		/////////////////////////////////////
+
+		function randomNumber(from,to,decimals) {
 			if (decimals != undefined) {
 				return (Math.random()*(Number(to)-Number(from))+Number(from)).toFixed(decimals);
 			}
 			else {
 				return Math.random()*(to-from)+from;
 			}
-		};
+		}
 
-		mathServiceScope.roundedNumber = function(value, precision) {
+		function roundedNumber(value, precision) {
 			var precision = precision || 0,
 				neg = value < 0,
 				power = Math.pow(10, precision),
@@ -22,6 +30,4 @@ angular.module('mathServiceModule', [])
 				padding = new Array(Math.max(precision - fraction.length, 0) + 1).join('0');
 			return parseFloat(precision ? integral + '.' +  padding + fraction : integral);
 		}
-		
-    });
-
+	}

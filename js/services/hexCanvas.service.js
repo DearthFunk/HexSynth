@@ -1,5 +1,9 @@
 angular.module('hexCanvasServiceModule', [])
-    .service("hexCanvasService", function($window, $timeout, $rootScope,themeService, eventService, audioService, localStorageService){
+    .service("hexCanvasService", hexCanavasService);
+
+	hexCanavasService.$inject = ['$window', 'themeService', 'eventService', 'audioService', 'localStorageService'];
+
+	function hexCanavasService($window, themeService, eventService, audioService, localStorageService){
 
         var hexCanvas = this;
         var w, h, lastHoverIndex = -1;
@@ -172,4 +176,4 @@ angular.module('hexCanvasServiceModule', [])
         hexCanvas.windowResize();
         hexCanvas.recalculateAndDrawHexes(true);
 
-    });
+    }

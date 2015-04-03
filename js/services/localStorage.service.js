@@ -1,24 +1,31 @@
 angular.module('localStorageServiceModule', [])
-	.service("localStorageService", function(){
+	.factory("localStorageService", localStorageService);
 
-		var localStorageServiceScope = this;
+	localStorageService.$inject = [];
 
-		localStorageServiceScope.storage = JSON.parse(localStorage.getItem('hexSynthDearthFunkSaveObject'));
-		if (localStorageServiceScope.storage != null) {
-			if ('active' in localStorageServiceScope.storage) {
-				if (localStorageServiceScope.storage.active){ localStorageServiceScope.storage = false}
+	function localStorageService(){
+
+		var service = {
+			storage: JSON.parse(localStorage.getItem('hexSynthDearthFunkSaveObject')),
+			getStorageInfo: getStorageInfo
+		};
+		if (service.storage != null) {
+			if ('active' in service.storage) {
+				if (service.storage.active){ service.storage = false}
 			}
 			else {
-				localStorageServiceScope.storage = false;
+				service.storage = false;
 			}
 		}
 		else {
-			localStorageServiceScope.storage = false;
+			service.storage = false;
 		}
 
+		return service;
 
+		/////////////////////////////////////////////////////
 
-		localStorageServiceScope.getStorageInfo = function (audioService,themeService,eventService,visualizerCanvasService,hexCanvasService) {
+		function getStorageInfo(audioService,themeService,eventService,visualizerCanvasService,hexCanvasService) {
 			return {
 				active: false,
 				volume: audioService.volume,
@@ -30,8 +37,4 @@ angular.module('localStorageServiceModule', [])
 				synthTemplates: angular.copy(audioService.synthTemplates)
 			};
 		}
-
-
-
-	});
-
+	}
