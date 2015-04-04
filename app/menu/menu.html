@@ -25,7 +25,7 @@
 
     <div class="synthSelector">
         <span class="title">SYNTH TEMPLATE</span>
-        <div class="button" data-ng-click="changeSynth($index)" data-right-click="resetSynth($index)" data-ng-repeat="item in audioService.synthTemplates track by $index">
+        <div class="button" data-ng-click="changeSynth($index)" data-ng-right-click="resetSynth($index)" data-ng-repeat="item in menuService.synthTemplates track by $index">
             <div class="inner" data-ng-class="{active: $index == menuService.synthIndex, updating: $index == resetIndex}">{{$index == resetIndex ? 'X' : ''}}</div>
         </div>
     </div>

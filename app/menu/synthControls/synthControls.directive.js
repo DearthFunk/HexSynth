@@ -30,7 +30,7 @@ angular
 		};
 		$scope.updateWaveType = {
 			toRun: function (index, item) {
-				audioService.synthTemplates[menuService.synthIndex].controls.oscillators.type[index] = item;
+				menuService.synthTemplates[menuService.synthIndex].controls.oscillators.type[index] = item;
 				audioService.updateSynthValues();
 			}
 		}

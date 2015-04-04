@@ -1,6 +1,6 @@
 angular
 	.module('visualizerModule')
-    .factory("VisScope", visScopeFactory);
+    .factory('VisScope', visScopeFactory);
 
 	visScopeFactory.$inject = [];
 

@@ -1,6 +1,6 @@
 angular
 	.module('browserServiceModule', [])
-	.factory("browserService", browserService);
+	.factory('browserService', browserService);
 
 	browserService.$inject = [];
 
@@ -23,9 +23,9 @@ angular
 			if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
 			return M;//.join(' ');
 		})();
-		service.isChrome = service.browserType[0] === "Chrome";
-		service.isFirefox = service.browserType[0] === "Firefox";
-		service.isSafari = service.browserType[0] === "Safari";
+		service.isChrome = service.browserType[0] === 'Chrome';
+		service.isFirefox = service.browserType[0] === 'Firefox';
+		service.isSafari = service.browserType[0] === 'Safari';
 
 
 		return service;

@@ -1,6 +1,6 @@
 angular
 	.module('colorServiceModule', [])
-    .factory("colorService", colorService);
+    .factory('colorService', colorService);
 
 	function colorService(){
 		var service = {

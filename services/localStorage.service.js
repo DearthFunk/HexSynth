@@ -1,5 +1,5 @@
 angular.module('localStorageServiceModule', [])
-	.factory("localStorageService", localStorageService);
+	.factory('localStorageService', localStorageService);
 
 	localStorageService.$inject = [];
 
@@ -11,7 +11,9 @@ angular.module('localStorageServiceModule', [])
 		};
 		if (service.storage != null) {
 			if ('active' in service.storage) {
-				if (service.storage.active){ service.storage = false}
+				if (!service.storage.active){
+					service.storage = false;
+				}
 			}
 			else {
 				service.storage = false;
@@ -25,7 +27,7 @@ angular.module('localStorageServiceModule', [])
 
 		/////////////////////////////////////////////////////
 
-		function getStorageInfo(audioService,menuService) {
+		function getStorageInfo(menuService) {
 			return {
 				active: false,
 				volume: menuService.volume,
@@ -34,7 +36,7 @@ angular.module('localStorageServiceModule', [])
 				themeIndex: menuService.themeIndex,
 				controlsIndex: menuService.controlsIndex,
 				visualizerIndex: menuService.visualizerIndex,
-				synthTemplates: angular.copy(audioService.synthTemplates)
+				synthTemplates: angular.copy(menuService.synthTemplates)
 			};
 		}
 	}

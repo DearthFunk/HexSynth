@@ -19,7 +19,7 @@ angular
 
 	function visualizerController($scope, $element, $window, $timeout, audioService, localStorageService, menuService, VisBubbles, VisTracer, VisScope) {
 
-		var ctx = $element[0].getContext("2d");
+		var ctx = $element[0].getContext('2d');
 		var drawSpeed = 20;
 		var visualizerCanvas = this;
 		var w, h = 0;
@@ -30,10 +30,10 @@ angular
 		$scope.$on('windowResize', $scope.windowResize);
 
 		$scope.visualizers = [
-			{name:"None",   globalCompositeOperation: "",            clearCanvas:false, vis: false},
-			{name:"Bubbles",globalCompositeOperation: "lighter",     clearCanvas:true,  vis: new VisBubbles(ctx)},
-			{name:"Scope",  globalCompositeOperation: "source-over", clearCanvas:false, vis: new VisScope(ctx)},
-			{name:"Tracer", globalCompositeOperation: "lighter",     clearCanvas:true,  vis: new VisTracer(ctx)}
+			{name:'None',   globalCompositeOperation: '',            clearCanvas:false, vis: false},
+			{name:'Bubbles',globalCompositeOperation: 'lighter',     clearCanvas:true,  vis: new VisBubbles(ctx)},
+			{name:'Scope',  globalCompositeOperation: 'source-over', clearCanvas:false, vis: new VisScope(ctx)},
+			{name:'Tracer', globalCompositeOperation: 'lighter',     clearCanvas:true,  vis: new VisTracer(ctx)}
 		];
 
 		timer();

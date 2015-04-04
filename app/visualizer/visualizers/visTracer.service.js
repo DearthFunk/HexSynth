@@ -1,6 +1,6 @@
 angular
 	.module('visualizerModule')
-    .factory("VisTracer", visTracerFactory);
+    .factory('VisTracer', visTracerFactory);
 
 	visTracerFactory.$inject = [];
 

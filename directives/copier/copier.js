@@ -15,9 +15,9 @@ angular
 		return directive;
 	}
 
-	copierController.$inject = ['$scope', 'audioService', 'THEMES', 'controlsService', 'menuService'];
+	copierController.$inject = ['$scope', 'menuService'];
 
-	function copierController($scope, audioService,THEMES,controlsService,menuService) {
+	function copierController($scope, menuService) {
 
 		var client = new ZeroClipboard(document.getElementById('copyButton'));
 		$scope.textAreaData = '';
@@ -35,7 +35,7 @@ angular
 			var parsedData = JSON.parse($scope.textAreaData);
 			if (parsedData != null) {
 				menuService.synthIndex = parsedData.synthIndex;
-				audioService.synthTemplates = angular.copy(parsedData.synthTemplates);
+				menuService.synthTemplates = angular.copy(parsedData.synthTemplates);
 				menuService.themeIndex = parsedData.themeIndex;
 				menuService.controlsIndex = parsedData.controlsIndex;
 				menuService.visualizerIndex = parsedData.visualizerIndex;

@@ -14,9 +14,9 @@ angular
 		return directive;
 	}
 
-	hexGridController.$inject = ['$scope', '$element', '$window', 'THEMES', 'controlsService', 'audioService', 'menuService', 'localStorageService'];
+	hexGridController.$inject = ['$scope', '$element', '$window', 'THEMES', 'controlsService', 'audioService', 'menuService'];
 
-	function hexGridController($scope, $element, $window, THEMES, controlsService, audioService, menuService, localStorageService){
+	function hexGridController($scope, $element, $window, THEMES, controlsService, audioService, menuService){
 
 		var notes = ['A','A\'','B','C','C\'','D','D\'','E','F','F\'','G','G\''];
         var w, h, hoverIndex, lastHoverIndex = -1;
@@ -28,6 +28,8 @@ angular
 		$scope.recalculateAndDrawHexes = recalculateAndDrawHexes;
 		$scope.drawHex = drawHex;
 		$scope.checkHexes = checkHexes;
+
+		$scope.$on('redrawGrid', $scope.recalculateAndDrawHexes);
 
 		windowResize();
 
@@ -109,9 +111,6 @@ angular
         }
 
         function drawHex(hex, hover) {
-            // actual hex
-	        console.log(hex);
-
             ctx.beginPath();
             ctx.lineWidth = hover ? 2 : 1;
             ctx.strokeStyle = hover ? THEMES[menuService.themeIndex].hexActive.border : THEMES[menuService.themeIndex].hex.border;
@@ -178,12 +177,13 @@ angular
                 }
             }
 
-			console.log(hexGrid);
             //-----------------------------------------------------draw hexes
             if (hoverIndex != lastHoverIndex || overRide) {
                 ctx.clearRect(0, 0, w, h);
                 for (i = 0; i < hexGrid.hexes.length; i++){
-                    if (i != hoverIndex) { drawHex(hexGrid.hexes[i], false); }
+                    if (i != hoverIndex) {
+	                    drawHex(hexGrid.hexes[i], false);
+                    }
                 }
             }
             //draw hover hex last, so that the border stands out

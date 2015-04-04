@@ -10,7 +10,7 @@ angular
             link: function(scope,element){
 
             //window events
-                $window.onblur = function(event) {$rootScope.$broadcast("windowBlurEvent",event);
+                $window.onblur = function(event) {$rootScope.$broadcast('windowBlurEvent',event);
                     audioService.stopHexSound();
                 };
                 $window.onresize = function() {
@@ -18,45 +18,45 @@ angular
                     $rootScope.$broadcast('windowResize');
                 };
                 $window.onbeforeunload = function(){
-                    var hexSynthDearthFunkSaveObject = localStorageService.getStorageInfo(audioService,THEMES,controlsService,menuService);
+                    var hexSynthDearthFunkSaveObject = localStorageService.getStorageInfo(menuService);
                     localStorage.setItem('hexSynthDearthFunkSaveObject', JSON.stringify(hexSynthDearthFunkSaveObject));
                 };
 
 
             //mouse events
-                element.bind("mousewheel", function(event){
-                    if (event.target.localName != "textarea") {
-                        $rootScope.$broadcast("mouseWheelEvent",event);
+                element.bind('mousewheel', function(event){
+                    if (event.target.localName != 'textarea') {
+                        $rootScope.$broadcast('mouseWheelEvent',event);
                     }
                 });
-                element.bind("mousemove", function(event) {
-                    if (event.target.localName != "textarea") {
+                element.bind('mousemove', function(event) {
+                    if (event.target.localName != 'textarea') {
                         //hexCanvasService.checkHexes();
 	                    controlsService.events.mouseX = event.clientX;
 	                    controlsService.events.mouseY = event.clientY;
-                        $rootScope.$broadcast("mouseMoveEvent",event);
+                        $rootScope.$broadcast('mouseMoveEvent',event);
                     }
                 });
-                element.bind("mousedown", function(event) {
-                    if (event.target.localName != "textarea") {
+                element.bind('mousedown', function(event) {
+                    if (event.target.localName != 'textarea') {
 	                    controlsService.events.mouseDown = true;
-                        $rootScope.$broadcast("mouseDownEvent",event);
+                        $rootScope.$broadcast('mouseDownEvent',event);
                     }
                 });
-                element.bind("mouseup", function(event){
-                    if (event.target.localName != "textarea") {
+                element.bind('mouseup', function(event){
+                    if (event.target.localName != 'textarea') {
 	                    controlsService.events.mouseDown = false;
                         //hexCanvasService.checkHexes(true);
-                        $rootScope.$broadcast("mouseUpEvent",event);
+                        $rootScope.$broadcast('mouseUpEvent',event);
                     }
                 });
 
             //keyboard events
-                element.bind("keydown", function(event){
-                    if (event.target.localName != "textarea") {
+                element.bind('keydown', function(event){
+                    if (event.target.localName != 'textarea') {
                         audioService.handleKeyPress(event);
                         var controls = controlsService.controls[menuService.controlsIndex];
-                        var synthTemplate = audioService.synthTemplates[menuService.synthIndex];
+                        var synthTemplate = menuService.synthTemplates[menuService.synthIndex];
                         for (var i = 0; i < controls.bypasses.length; i++) {
                             if (event.keyCode == controls.bypasses[i]) {
                                 var toSwitch = controls.bypassFunctions[i];
@@ -66,7 +66,7 @@ angular
                         }
                     }
                 });
-                element.bind("keyup", function(event) {
+                element.bind('keyup', function(event) {
                 });
             }
         }

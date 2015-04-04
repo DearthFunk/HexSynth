@@ -1,9 +1,9 @@
 angular.module('audioServiceModule', [])
-    .service("audioService", audioService);
+    .service('audioService', audioService);
 
-	audioService.$inject = ['controlsService','localStorageService','menuService', 'OSC_WAVE_TYPES','SYNTH_DEFAULT_TEMPLATES'];
+	audioService.$inject = ['controlsService','menuService', 'OSC_WAVE_TYPES'];
 
-	function audioService (controlsService, localStorageService, menuService, OSC_WAVE_TYPES, SYNTH_DEFAULT_TEMPLATES){
+	function audioService (controlsService, menuService, OSC_WAVE_TYPES){
 
         var audioCtx = typeof AudioContext !== 'undefined' ?	new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() :	null;
         var audioServiceScope = this;
@@ -44,11 +44,9 @@ angular.module('audioServiceModule', [])
 
         audioServiceScope.analyser = nodeAnalyser;
 
-        audioServiceScope.synthTemplates = angular.isObject(localStorageService.storage) ? localStorageService.storage.synthTemplates : angular.copy(SYNTH_DEFAULT_TEMPLATES);
-
-        nodeOsc1.type = audioServiceScope.synthTemplates[menuService.synthIndex].controls.oscillators.type[0];
-        nodeOsc2.type = audioServiceScope.synthTemplates[menuService.synthIndex].controls.oscillators.type[1];
-        nodeOsc3.type = audioServiceScope.synthTemplates[menuService.synthIndex].controls.oscillators.type[2];
+        nodeOsc1.type = menuService.synthTemplates[menuService.synthIndex].controls.oscillators.type[0];
+        nodeOsc2.type = menuService.synthTemplates[menuService.synthIndex].controls.oscillators.type[1];
+        nodeOsc3.type = menuService.synthTemplates[menuService.synthIndex].controls.oscillators.type[2];
         nodeOsc1.frequency.value = 0;
         nodeOsc2.frequency.value = 0;
         nodeOsc3.frequency.value = 0;
@@ -67,7 +65,7 @@ angular.module('audioServiceModule', [])
 
         audioServiceScope.updateSynthValues = function() {
 
-            var data = audioServiceScope.synthTemplates[menuService.synthIndex].controls;
+            var data = menuService.synthTemplates[menuService.synthIndex].controls;
 
             nodeOsc1.type = data.oscillators.type[0] === -1 ? '' : OSC_WAVE_TYPES[data.oscillators.type[0]].txt.toLowerCase();
             nodeOsc2.type = data.oscillators.type[1] === -1 ? '' : OSC_WAVE_TYPES[data.oscillators.type[1]].txt.toLowerCase();
@@ -126,7 +124,7 @@ angular.module('audioServiceModule', [])
         };
 
         audioServiceScope.playHexSound = function(freq) {
-            var data = audioServiceScope.synthTemplates[menuService.synthIndex].controls;
+            var data = menuService.synthTemplates[menuService.synthIndex].controls;
             if (!playing) {
                 nodeStopper.gain.value = 1;
                 playing = true;

@@ -1,6 +1,6 @@
 angular
 	.module('mathServiceModule', [])
-    .factory("mathService", mathService);
+    .factory('mathService', mathService);
 
 	function mathService(){
 		var service = {
