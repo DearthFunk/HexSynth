@@ -2,9 +2,9 @@ angular
 	.module('htmlModule', [])
 	.directive('html', html);
 
-	html.$inject = ['$rootScope','$window','themeService','controlsService','audioService','hexCanvasService','localStorageService'];
+	html.$inject = ['$rootScope','$window','THEMES','controlsService','audioService','localStorageService', 'menuService'];
 
-	function html($rootScope,$window, themeService, controlsService, audioService, hexCanvasService, localStorageService){
+	function html($rootScope,$window, THEMES, controlsService, audioService, localStorageService, menuService){
         return {
             restrict: 'E',
             link: function(scope,element){
@@ -14,11 +14,11 @@ angular
                     audioService.stopHexSound();
                 };
                 $window.onresize = function() {
-                    hexCanvasService.windowResize();
+                    //hexCanvasService.windowResize();
                     $rootScope.$broadcast('windowResize');
                 };
                 $window.onbeforeunload = function(){
-                    var hexSynthDearthFunkSaveObject = localStorageService.getStorageInfo(audioService,themeService,controlsService,visualizerService,hexCanvasService);
+                    var hexSynthDearthFunkSaveObject = localStorageService.getStorageInfo(audioService,THEMES,controlsService,menuService);
                     localStorage.setItem('hexSynthDearthFunkSaveObject', JSON.stringify(hexSynthDearthFunkSaveObject));
                 };
 
@@ -31,7 +31,7 @@ angular
                 });
                 element.bind("mousemove", function(event) {
                     if (event.target.localName != "textarea") {
-                        hexCanvasService.checkHexes();
+                        //hexCanvasService.checkHexes();
 	                    controlsService.events.mouseX = event.clientX;
 	                    controlsService.events.mouseY = event.clientY;
                         $rootScope.$broadcast("mouseMoveEvent",event);
@@ -46,7 +46,7 @@ angular
                 element.bind("mouseup", function(event){
                     if (event.target.localName != "textarea") {
 	                    controlsService.events.mouseDown = false;
-                        hexCanvasService.checkHexes(true);
+                        //hexCanvasService.checkHexes(true);
                         $rootScope.$broadcast("mouseUpEvent",event);
                     }
                 });
@@ -55,8 +55,8 @@ angular
                 element.bind("keydown", function(event){
                     if (event.target.localName != "textarea") {
                         audioService.handleKeyPress(event);
-                        var controls = controlsService.controls[controlsService.controlsIndex];
-                        var synthTemplate = audioService.synthTemplates[audioService.synthIndex];
+                        var controls = controlsService.controls[menuService.controlsIndex];
+                        var synthTemplate = audioService.synthTemplates[menuService.synthIndex];
                         for (var i = 0; i < controls.bypasses.length; i++) {
                             if (event.keyCode == controls.bypasses[i]) {
                                 var toSwitch = controls.bypassFunctions[i];

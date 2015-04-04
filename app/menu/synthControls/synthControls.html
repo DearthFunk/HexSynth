@@ -7,70 +7,70 @@
              data-list="OSC_WAVE_TYPES"
              data-return-index="0"
              data-call-back="updateWaveType"
-             data-selected="audioService.synthTemplates[audioService.synthIndex].controls.oscillators.type[0]"></div>
+             data-selected="audioService.synthTemplates[menuService.synthIndex].controls.oscillators.type[0]"></div>
         <div drop-down
              data-list="OSC_WAVE_TYPES"
              data-return-index="1"
              data-call-back="updateWaveType"
-             data-selected="audioService.synthTemplates[audioService.synthIndex].controls.oscillators.type[1]"></div>
+             data-selected="audioService.synthTemplates[menuService.synthIndex].controls.oscillators.type[1]"></div>
         <div drop-down
              data-list="OSC_WAVE_TYPES"
              data-return-index="2"
              data-call-back="updateWaveType"
-             data-selected="audioService.synthTemplates[audioService.synthIndex].controls.oscillators.type[2]"></div>
+             data-selected="audioService.synthTemplates[menuService.synthIndex].controls.oscillators.type[2]"></div>
         </div>
         <div class="right">
-            <div knob data-call-back="callBack" data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.oscillators.detune[0]"></div>
-            <div knob data-call-back="callBack" data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.oscillators.detune[1]"></div>
-            <div knob data-call-back="callBack" data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.oscillators.detune[2]"></div>
+            <div knob data-call-back="callBack" data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.oscillators.detune[0]"></div>
+            <div knob data-call-back="callBack" data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.oscillators.detune[1]"></div>
+            <div knob data-call-back="callBack" data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.oscillators.detune[2]"></div>
         </div>
     </div>
 
-    <div class="section" data-ng-class="{active: audioService.synthTemplates[audioService.synthIndex].controls.bitcrusher.bypass}">
+    <div class="section" data-ng-class="{active: audioService.synthTemplates[menuService.synthIndex].controls.bitcrusher.bypass}">
         <span class="title">Bit Crusher</span>
-        <div knob data-call-back="callBack" data-label="'Bit'" data-min-value="1" data-max-value="16" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.bitcrusher.bits"></div>
-        <div knob data-call-back="callBack" data-label="'Siz'" data-min-value="256" data-max-value="16384" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.bitcrusher.bufferSize"></div>
-        <div knob data-call-back="callBack" data-label="'Frq'" data-min-value="0.0001" data-max-value="1" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.bitcrusher.normfreq"></div>
+        <div knob data-call-back="callBack" data-label="'Bit'" data-min-value="1" data-max-value="16" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.bitcrusher.bits"></div>
+        <div knob data-call-back="callBack" data-label="'Siz'" data-min-value="256" data-max-value="16384" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.bitcrusher.bufferSize"></div>
+        <div knob data-call-back="callBack" data-label="'Frq'" data-min-value="0.0001" data-max-value="1" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.bitcrusher.normfreq"></div>
     </div>
 
-    <div class="section" data-ng-class="{active: audioService.synthTemplates[audioService.synthIndex].controls.overdrive.bypass}">
+    <div class="section" data-ng-class="{active: audioService.synthTemplates[menuService.synthIndex].controls.overdrive.bypass}">
         <span class="title">Overdrive</span>
-        <div knob data-call-back="callBack" data-label="'Gai'" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.overdrive.outputGain"></div>
-        <div knob data-call-back="callBack" data-label="'Drv'" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.overdrive.drive"></div>
-        <div knob data-call-back="callBack" data-label="'Crv'" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.overdrive.curveAmount"></div>
+        <div knob data-call-back="callBack" data-label="'Gai'" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.overdrive.outputGain"></div>
+        <div knob data-call-back="callBack" data-label="'Drv'" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.overdrive.drive"></div>
+        <div knob data-call-back="callBack" data-label="'Crv'" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.overdrive.curveAmount"></div>
     </div>
 
-    <div class="section" data-ng-class="{active: audioService.synthTemplates[audioService.synthIndex].controls.tremolo.bypass}">
+    <div class="section" data-ng-class="{active: audioService.synthTemplates[menuService.synthIndex].controls.tremolo.bypass}">
         <span class="title">Tremolo</span>
-        <div knob data-call-back="callBack" data-label="'Int'" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.tremolo.intensity"></div>
-        <div knob data-call-back="callBack" data-label="'Rat'" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.tremolo.rate"></div>
-        <div knob data-call-back="callBack" data-label="'Phs'" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.tremolo.stereoPhase"></div>
+        <div knob data-call-back="callBack" data-label="'Int'" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.tremolo.intensity"></div>
+        <div knob data-call-back="callBack" data-label="'Rat'" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.tremolo.rate"></div>
+        <div knob data-call-back="callBack" data-label="'Phs'" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.tremolo.stereoPhase"></div>
     </div>
 
-    <div class="section" data-ng-class="{active: audioService.synthTemplates[audioService.synthIndex].controls.wahwah.bypass}">
+    <div class="section" data-ng-class="{active: audioService.synthTemplates[menuService.synthIndex].controls.wahwah.bypass}">
         <span class="title">WahWah</span>
-        <div knob data-call-back="callBack" data-label="'Bas'" data-size="59" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.wahwah.baseFrequency"></div>
-        <div knob data-call-back="callBack" data-label="'Oct'" data-min-value="1" data-max-value="6" data-size="59" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.wahwah.excursionOctaves"></div>
-        <div knob data-call-back="callBack" data-label="'Swp'" data-size="59" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.wahwah.sweep"></div>
-        <div knob data-call-back="callBack" data-label="'Rez'" data-min-value="1" data-max-value="100" data-size="59" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.wahwah.resonance"></div>
+        <div knob data-call-back="callBack" data-label="'Bas'" data-size="59" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.wahwah.baseFrequency"></div>
+        <div knob data-call-back="callBack" data-label="'Oct'" data-min-value="1" data-max-value="6" data-size="59" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.wahwah.excursionOctaves"></div>
+        <div knob data-call-back="callBack" data-label="'Swp'" data-size="59" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.wahwah.sweep"></div>
+        <div knob data-call-back="callBack" data-label="'Rez'" data-min-value="1" data-max-value="100" data-size="59" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.wahwah.resonance"></div>
     </div>
 
-    <div class="section" data-ng-class="{active: audioService.synthTemplates[audioService.synthIndex].controls.phaser.bypass}">
+    <div class="section" data-ng-class="{active: audioService.synthTemplates[menuService.synthIndex].controls.phaser.bypass}">
         <span class="title">Phaser</span>
-        <div knob data-call-back="callBack" data-label="'Rat'" data-min-value="0.01" data-max-value="8" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.phaser.rate"></div>
-        <div knob data-call-back="callBack" data-label="'Dpt'" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.phaser.depth"></div>
-        <div knob data-call-back="callBack" data-label="'Fbk'" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.phaser.feedback"></div>
-        <div knob data-call-back="callBack" data-label="'Phs'" data-min-value="0" data-max-value="180" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.phaser.stereoPhase"></div>
-        <div knob data-call-back="callBack" data-label="'Mod'" data-min-value="500" data-max-value="1500" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.phaser.baseModulationFrequency"></div>
+        <div knob data-call-back="callBack" data-label="'Rat'" data-min-value="0.01" data-max-value="8" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.phaser.rate"></div>
+        <div knob data-call-back="callBack" data-label="'Dpt'" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.phaser.depth"></div>
+        <div knob data-call-back="callBack" data-label="'Fbk'" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.phaser.feedback"></div>
+        <div knob data-call-back="callBack" data-label="'Phs'" data-min-value="0" data-max-value="180" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.phaser.stereoPhase"></div>
+        <div knob data-call-back="callBack" data-label="'Mod'" data-min-value="500" data-max-value="1500" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.phaser.baseModulationFrequency"></div>
     </div>
 
-    <div class="section" data-ng-class="{active: audioService.synthTemplates[audioService.synthIndex].controls.delay.bypass}">
+    <div class="section" data-ng-class="{active: audioService.synthTemplates[menuService.synthIndex].controls.delay.bypass}">
         <span class="title">Delay</span>
-        <div knob data-call-back="callBack" data-label="'Wet'" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.delay.wetLevel"></div>
-        <div knob data-call-back="callBack" data-label="'Dry'" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.delay.dryLevel"></div>
-        <div knob data-call-back="callBack" data-label="'Fbk'" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.delay.feedback"></div>
-        <div knob data-call-back="callBack" data-label="'Dly'" data-min-value="0" data-max-value="300" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.delay.delayTime"></div>
-        <div knob data-call-back="callBack" data-label="'Cut'" data-min-value="20" data-max-value="22050" data-size="55" data-knob-value="audioService.synthTemplates[audioService.synthIndex].controls.delay.cutoff"></div>
+        <div knob data-call-back="callBack" data-label="'Wet'" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.delay.wetLevel"></div>
+        <div knob data-call-back="callBack" data-label="'Dry'" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.delay.dryLevel"></div>
+        <div knob data-call-back="callBack" data-label="'Fbk'" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.delay.feedback"></div>
+        <div knob data-call-back="callBack" data-label="'Dly'" data-min-value="0" data-max-value="300" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.delay.delayTime"></div>
+        <div knob data-call-back="callBack" data-label="'Cut'" data-min-value="20" data-max-value="22050" data-size="55" data-knob-value="audioService.synthTemplates[menuService.synthIndex].controls.delay.cutoff"></div>
     </div>
 
 </div>

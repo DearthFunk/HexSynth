@@ -1,9 +1,9 @@
 angular.module('audioServiceModule', [])
     .service("audioService", audioService);
 
-	audioService.$inject = ['controlsService','localStorageService','OSC_WAVE_TYPES','SYNTH_DEFAULT_TEMPLATES'];
+	audioService.$inject = ['controlsService','localStorageService','menuService', 'OSC_WAVE_TYPES','SYNTH_DEFAULT_TEMPLATES'];
 
-	function audioService (controlsService, localStorageService, OSC_WAVE_TYPES, SYNTH_DEFAULT_TEMPLATES){
+	function audioService (controlsService, localStorageService, menuService, OSC_WAVE_TYPES, SYNTH_DEFAULT_TEMPLATES){
 
         var audioCtx = typeof AudioContext !== 'undefined' ?	new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() :	null;
         var audioServiceScope = this;
@@ -45,12 +45,10 @@ angular.module('audioServiceModule', [])
         audioServiceScope.analyser = nodeAnalyser;
 
         audioServiceScope.synthTemplates = angular.isObject(localStorageService.storage) ? localStorageService.storage.synthTemplates : angular.copy(SYNTH_DEFAULT_TEMPLATES);
-        audioServiceScope.synthIndex = angular.isObject(localStorageService.storage) ? localStorageService.storage.synthIndex : 0;
-        audioServiceScope.volume = angular.isObject(localStorageService.storage) ? localStorageService.storage.volume : 0.5;
 
-        nodeOsc1.type = audioServiceScope.synthTemplates[audioServiceScope.synthIndex].controls.oscillators.type[0];
-        nodeOsc2.type = audioServiceScope.synthTemplates[audioServiceScope.synthIndex].controls.oscillators.type[1];
-        nodeOsc3.type = audioServiceScope.synthTemplates[audioServiceScope.synthIndex].controls.oscillators.type[2];
+        nodeOsc1.type = audioServiceScope.synthTemplates[menuService.synthIndex].controls.oscillators.type[0];
+        nodeOsc2.type = audioServiceScope.synthTemplates[menuService.synthIndex].controls.oscillators.type[1];
+        nodeOsc3.type = audioServiceScope.synthTemplates[menuService.synthIndex].controls.oscillators.type[2];
         nodeOsc1.frequency.value = 0;
         nodeOsc2.frequency.value = 0;
         nodeOsc3.frequency.value = 0;
@@ -69,7 +67,7 @@ angular.module('audioServiceModule', [])
 
         audioServiceScope.updateSynthValues = function() {
 
-            var data = audioServiceScope.synthTemplates[audioServiceScope.synthIndex].controls;
+            var data = audioServiceScope.synthTemplates[menuService.synthIndex].controls;
 
             nodeOsc1.type = data.oscillators.type[0] === -1 ? '' : OSC_WAVE_TYPES[data.oscillators.type[0]].txt.toLowerCase();
             nodeOsc2.type = data.oscillators.type[1] === -1 ? '' : OSC_WAVE_TYPES[data.oscillators.type[1]].txt.toLowerCase();
@@ -118,17 +116,17 @@ angular.module('audioServiceModule', [])
 
         audioServiceScope.handleKeyPress = function(e) {
             switch (e.keyCode) {
-                case controlsService.controls[controlsService.controlsIndex].bypasses[0] : fxBitCrusher.bypass = !fxBitCrusher.bypass; break;
-                case controlsService.controls[controlsService.controlsIndex].bypasses[1] : fxOverdrive.bypass = !fxOverdrive.bypass;   break;
-                case controlsService.controls[controlsService.controlsIndex].bypasses[2] : fxTremolo.bypass = !fxTremolo.bypass;       break;
-                case controlsService.controls[controlsService.controlsIndex].bypasses[3] : fxWahwah.bypass = !fxWahwah.bypass;         break;
-                case controlsService.controls[controlsService.controlsIndex].bypasses[4] : fxPhaser.bypass = !fxPhaser.bypass;         break;
-                case controlsService.controls[controlsService.controlsIndex].bypasses[5] : fxDelay.bypass = !fxDelay.bypass;           break;
+                case controlsService.controls[menuService.controlsIndex].bypasses[0] : fxBitCrusher.bypass = !fxBitCrusher.bypass; break;
+                case controlsService.controls[menuService.controlsIndex].bypasses[1] : fxOverdrive.bypass = !fxOverdrive.bypass;   break;
+                case controlsService.controls[menuService.controlsIndex].bypasses[2] : fxTremolo.bypass = !fxTremolo.bypass;       break;
+                case controlsService.controls[menuService.controlsIndex].bypasses[3] : fxWahwah.bypass = !fxWahwah.bypass;         break;
+                case controlsService.controls[menuService.controlsIndex].bypasses[4] : fxPhaser.bypass = !fxPhaser.bypass;         break;
+                case controlsService.controls[menuService.controlsIndex].bypasses[5] : fxDelay.bypass = !fxDelay.bypass;           break;
             }
         };
 
         audioServiceScope.playHexSound = function(freq) {
-            var data = audioServiceScope.synthTemplates[audioServiceScope.synthIndex].controls;
+            var data = audioServiceScope.synthTemplates[menuService.synthIndex].controls;
             if (!playing) {
                 nodeStopper.gain.value = 1;
                 playing = true;

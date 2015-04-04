@@ -18,7 +18,6 @@ function controlsService(localStorageService){
 				bypassFunctions: ['bitcrusher', 'overdrive', 'tremolo', 'wahwah', 'phaser', 'delay']
 			}
 		],
-		controlsIndex: angular.isObject(localStorageService.storage) ? localStorageService.storage.controlsIndex : 0,
 		events: {
 			mouseX: 0,
 			mouseY: 0,

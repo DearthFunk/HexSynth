@@ -25,15 +25,15 @@ angular.module('localStorageServiceModule', [])
 
 		/////////////////////////////////////////////////////
 
-		function getStorageInfo(audioService,themeService,controlsService,visualizerService,hexCanvasService) {
+		function getStorageInfo(audioService,menuService) {
 			return {
 				active: false,
-				volume: audioService.volume,
-				hexSize: hexCanvasService.hexSize,
-				synthIndex: audioService.synthIndex,
-				themeIndex: themeService.themeIndex,
-				controlsIndex: controlsService.controlsIndex,
-				visualizerIndex: visualizerService.visualizerIndex,
+				volume: menuService.volume,
+				hexSize: menuService.hexSize,
+				synthIndex: menuService.synthIndex,
+				themeIndex: menuService.themeIndex,
+				controlsIndex: menuService.controlsIndex,
+				visualizerIndex: menuService.visualizerIndex,
 				synthTemplates: angular.copy(audioService.synthTemplates)
 			};
 		}

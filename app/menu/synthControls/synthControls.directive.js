@@ -15,9 +15,9 @@ angular
 		return directive;
 	}
 
-	synthControlsController.$inject = ['$scope', 'audioService', 'OSC_WAVE_TYPES'];
+	synthControlsController.$inject = ['$scope', 'audioService', 'menuService', 'OSC_WAVE_TYPES'];
 
-	function synthControlsController($scope, audioService, OSC_WAVE_TYPES) {
+	function synthControlsController($scope, audioService, menuService, OSC_WAVE_TYPES) {
 
 		$scope.resetIndex = -1;
 		$scope.audioService = audioService;
@@ -30,7 +30,7 @@ angular
 		};
 		$scope.updateWaveType = {
 			toRun: function (index, item) {
-				audioService.synthTemplates[audioService.synthIndex].controls.oscillators.type[index] = item;
+				audioService.synthTemplates[menuService.synthIndex].controls.oscillators.type[index] = item;
 				audioService.updateSynthValues();
 			}
 		}

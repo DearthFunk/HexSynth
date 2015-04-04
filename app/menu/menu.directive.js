@@ -15,15 +15,15 @@ angular
 		return directive;
 	}
 
-	menuController.$inject = ['$scope','$timeout','$rootScope','themeService','controlsService','audioService','hexCanvasService','visualizerService', 'SYNTH_DEFAULT_TEMPLATES', 'localStorageService'];
+	menuController.$inject = ['$scope','$timeout','$rootScope','THEMES','controlsService','audioService','menuService', 'SYNTH_DEFAULT_TEMPLATES', 'localStorageService'];
 
-    function menuController($scope,$timeout,$rootScope,themeService,controlsService,audioService,hexCanvasService,visualizerService, SYNTH_DEFAULT_TEMPLATES, localStorageService) {
+    function menuController($scope,$timeout,$rootScope,THEMES,controlsService,audioService,menuService, SYNTH_DEFAULT_TEMPLATES, localStorageService) {
 
-	    $scope.themeService = themeService;
+	    $scope.THEMES = THEMES;
 	    $scope.controlsService = controlsService;
 	    $scope.audioService = audioService;
-	    $scope.hexCanvasService = hexCanvasService;
-	    $scope.visualizerService = visualizerService;
+	   // $scope.hexCanvasService = hexCanvasService;
+	    $scope.menuService = menuService;
 
 
 	    $scope.helpButton = helpButton;
@@ -37,7 +37,7 @@ angular
 
 	    function updateSize(newVal, firstLoad) {
 		    if (!firstLoad) {
-			    hexCanvasService.recalculateAndDrawHexes(true);
+			   // hexCanvasService.recalculateAndDrawHexes(true);
 		    }
 
 	    }
@@ -55,17 +55,17 @@ angular
 	    function copierButton() {
 		    $scope.copierVisible = !$scope.copierVisible;
 		    $scope.helpWindowVisible = false;
-		    var data = JSON.stringify(localStorageService.getStorageInfo(audioService, themeService, controlsService, visualizerService, hexCanvasService));
+		    var data = JSON.stringify(localStorageService.getStorageInfo(audioService, THEMES, controlsService, menuService));
 		    $rootScope.$broadcast("importExport", data);
 	    }
 
 	    function changeTheme(index) {
-		    themeService.themeIndex = index;
-		    hexCanvasService.recalculateAndDrawHexes(true);
+		    menuService.themeIndex = index;
+		    //hexCanvasService.recalculateAndDrawHexes(true);
 	    }
 
 	    function changeSynth(index) {
-		    audioService.synthIndex = index;
+		    menuService.synthIndex = index;
 		    audioService.updateSynthValues();
 	    }
 

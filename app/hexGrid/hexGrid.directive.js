@@ -14,11 +14,10 @@ angular
 		return directive;
 	}
 
-	hexGridController.$inject = ['$scope', '$element', '$window', 'themeService', 'controlsService', 'audioService', 'localStorageService'];
+	hexGridController.$inject = ['$scope', '$element', '$window', 'THEMES', 'controlsService', 'audioService', 'menuService', 'localStorageService'];
 
-	function hexGridController($scope, $element, $window, themeService, controlsService, audioService, localStorageService){
+	function hexGridController($scope, $element, $window, THEMES, controlsService, audioService, menuService, localStorageService){
 
-		var hexSize = angular.isObject(localStorageService.storage) ? localStorageService.storage.hexSize : 0.5;
 		var notes = ['A','A\'','B','C','C\'','D','D\'','E','F','F\'','G','G\''];
         var w, h, hoverIndex, lastHoverIndex = -1;
         var ctx = $element[0].getContext('2d');
@@ -56,7 +55,7 @@ angular
 			return (10 - Math.floor(x * 14)) + 40;
 		}
 		function recalculateAndDrawHexes(forceRedraw) {
-			var size = getHexSize(hexSize);
+			var size = getHexSize(menuService.hexSize);
             hexGrid = {
                 hexHeight: Math.sqrt(3) * size,
                 hexWidth: 2 * size,
@@ -84,7 +83,7 @@ angular
                         index:counter,
                         frequency: Math.floor(440 * Math.pow(2, (noteIndex + (row * 12) - 48) / 12)),
                         sharp: noteIndex == 1 || noteIndex == 3 || noteIndex == 6 || noteIndex == 8 || noteIndex == 10,
-                        centerX: xPos - getHexSize(hexSize) + hexGrid.hexWidth,
+                        centerX: xPos - getHexSize(menuService.hexSize) + hexGrid.hexWidth,
                         centerY: yPos + (hexGrid.hexHeight / 2),
                         xArray:[
                             xPos + hexGrid.hexWidth - hexGrid.hexSide,
@@ -111,16 +110,18 @@ angular
 
         function drawHex(hex, hover) {
             // actual hex
+	        console.log(hex);
+
             ctx.beginPath();
             ctx.lineWidth = hover ? 2 : 1;
-            ctx.strokeStyle = hover ? themeService.themes[themeService.themeIndex].hexActive.border : themeService.themes[themeService.themeIndex].hex.border;
+            ctx.strokeStyle = hover ? THEMES[menuService.themeIndex].hexActive.border : THEMES[menuService.themeIndex].hex.border;
             ctx.fillStyle   = hover ?
                 hex.sharp ?
-                    themeService.themes[themeService.themeIndex].hexActive.fillSharp :
-                    themeService.themes[themeService.themeIndex].hexActive.fill :
+                    THEMES[menuService.themeIndex].hexActive.fillSharp :
+                    THEMES[menuService.themeIndex].hexActive.fill :
                 hex.sharp ?
-                    themeService.themes[themeService.themeIndex].hex.fillSharp :
-                    themeService.themes[themeService.themeIndex].hex.fill;
+                    THEMES[menuService.themeIndex].hex.fillSharp :
+                    THEMES[menuService.themeIndex].hex.fill;
 
             ctx.moveTo(hex.xArray[0],hex.yArray[0]);
             for (var i =1; i < hex.xArray.length; i++){
@@ -133,7 +134,7 @@ angular
 
             // inner dot
             ctx.beginPath();
-            ctx.fillStyle = hover ? themeService.themes[themeService.themeIndex].hexActive.innerDot : themeService.themes[themeService.themeIndex].hex.innerDot;
+            ctx.fillStyle = hover ? THEMES[menuService.themeIndex].hexActive.innerDot : THEMES[menuService.themeIndex].hex.innerDot;
             ctx.arc(hex.centerX,hex.centerY,2,0,Math.PI*2,false);
             ctx.fill();
             ctx.closePath();
@@ -141,7 +142,7 @@ angular
             //inner text
             ctx.beginPath();
 
-            ctx.fillStyle = hover ? themeService.themes[themeService.themeIndex].hexActive.text : themeService.themes[themeService.themeIndex].hex.text;
+            ctx.fillStyle = hover ? THEMES[menuService.themeIndex].hexActive.text : THEMES[menuService.themeIndex].hex.text;
             ctx.textAlign = 'center';
 
             ctx.font='bold  12px Georgia';
@@ -155,7 +156,7 @@ angular
         }
 
 		function checkHexes(overRide) {
-            if (controlsService.controlsIndex == 0) {
+            if (menuService.controlsIndex == 0) {
                 //get hover index
                 if (!controlsService.events.mouseDown) {
                     hoverIndex = -1;
@@ -167,7 +168,7 @@ angular
                     }
                 }
             }
-            if (controlsService.controlsIndex == 1 && overRide) {
+            if (menuService.controlsIndex == 1 && overRide) {
                 hoverIndex = -1;
                 for (i = 0; i < hexGrid.hexes.length; i++){
                     if (pointInPolygon(hexGrid.hexes[i].xArray,hexGrid.hexes[i].yArray,controlsService.events.mouseX,controlsService.events.mouseY)) {
@@ -177,6 +178,7 @@ angular
                 }
             }
 
+			console.log(hexGrid);
             //-----------------------------------------------------draw hexes
             if (hoverIndex != lastHoverIndex || overRide) {
                 ctx.clearRect(0, 0, w, h);

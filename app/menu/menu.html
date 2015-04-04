@@ -4,29 +4,29 @@
     <div class="animation middle" data-ng-hide="showHelpScreen">
 	    <div class="panel border left">
 		    <span class="title">VOL</span>
-		    <div slider-vertical class="slider" data-slider-value="audioService.volume" data-call-back="updateVolume"></div>
+		    <div slider-vertical class="slider" data-slider-value="menuService.volume" data-call-back="updateVolume"></div>
 	    </div>
 	    <div class="panel border middle">
 		    <span class="title">SIZE</span>
-		    <div slider-vertical class="slider" data-slider-value="hexCanvasService.hexSize" data-call-back="updateSize"></div>
+		    <div slider-vertical class="slider" data-slider-value="menuService.hexSize" data-call-back="updateSize"></div>
 	    </div>
 
         <div class="panel right" data-ng-hide="showHelpScreen">
             <span class="title">THEMES</span>
-            <div class="theme {{$index==themeService.themeIndex}}" data-ng-click="changeTheme($index)" data-ng-repeat="item in themeService.themes track by $index">{{item.name}}</div>
+            <div class="theme {{$index==menuService.themeIndex}}" data-ng-click="changeTheme($index)" data-ng-repeat="item in THEMES track by $index">{{item.name}}</div>
             <hr>
             <span class="title">CONTROLS</span>
-            <div class="theme {{$index==controlsService.controlsIndex}}" data-ng-click="controlsService.controlsIndex = $index" data-ng-repeat="item in controlsService.controls track by $index">{{item.name}}</div>
+            <div class="theme {{$index==menuService.controlsIndex}}" data-ng-click="menuService.controlsIndex = $index" data-ng-repeat="item in controlsService.controls track by $index">{{item.name}}</div>
             <hr>
             <span class="title">VISUALIZERS</span>
-            <div class="theme {{$index==visualizerService.visualizerIndex}}" data-ng-click="visualizerService.visualizerIndex = $index" data-ng-repeat="item in visualizerService.visualizers track by $index">{{item.name}}</div>
+            <div class="theme {{$index==menuService.visualizerIndex}}" data-ng-click="menuService.visualizerIndex = $index" data-ng-repeat="item in menuService.visualizers track by $index">{{item.name}}</div>
         </div>
     </div>
 
     <div class="synthSelector">
         <span class="title">SYNTH TEMPLATE</span>
         <div class="button" data-ng-click="changeSynth($index)" data-right-click="resetSynth($index)" data-ng-repeat="item in audioService.synthTemplates track by $index">
-            <div class="inner" data-ng-class="{active: $index == audioService.synthIndex, updating: $index == resetIndex}">{{$index == resetIndex ? 'X' : ''}}</div>
+            <div class="inner" data-ng-class="{active: $index == menuService.synthIndex, updating: $index == resetIndex}">{{$index == resetIndex ? 'X' : ''}}</div>
         </div>
     </div>
 

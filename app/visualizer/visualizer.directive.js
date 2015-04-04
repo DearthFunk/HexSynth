@@ -15,9 +15,9 @@ angular
 		return directive
 	}
 
-	visualizerController.$inject = ['$scope', '$element', '$window', '$timeout', 'audioService', 'localStorageService', 'visualizerService', 'VisBubbles', 'VisTracer', 'VisScope'];
+	visualizerController.$inject = ['$scope', '$element', '$window', '$timeout', 'audioService', 'localStorageService', 'menuService', 'VisBubbles', 'VisTracer', 'VisScope'];
 
-	function visualizerController($scope, $element, $window, $timeout, audioService, localStorageService, visualizerService, VisBubbles, VisTracer, VisScope) {
+	function visualizerController($scope, $element, $window, $timeout, audioService, localStorageService, menuService, VisBubbles, VisTracer, VisScope) {
 
 		var ctx = $element[0].getContext("2d");
 		var drawSpeed = 20;
@@ -49,9 +49,7 @@ angular
 			angular.element(ctx.canvas).attr({width:  w, height: h	});
 		}
 		function timer() {
-			console.log(visualizerService.visualizerIndex);
-
-			var vis = $scope.visualizers[visualizerService.visualizerIndex];
+			var vis = $scope.visualizers[menuService.visualizerIndex];
 			if (vis.clearCanvas || !vis) {
 				ctx.clearRect(0,0, w,h);
 			}
