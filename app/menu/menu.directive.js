@@ -7,7 +7,7 @@ angular
 	function menu () {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'directives/menu/menu.html',
+			templateUrl: 'app/menu/menu.html',
 			replace: true,
 			controller: menuController,
 			bindToController: true
@@ -15,15 +15,15 @@ angular
 		return directive;
 	}
 
-	menuController.$inject = ['$scope','$timeout','$rootScope','themeService','eventService','audioService','hexCanvasService','visualizerCanvasService', 'SYNTH_DEFAULT_TEMPLATES', 'localStorageService'];
+	menuController.$inject = ['$scope','$timeout','$rootScope','themeService','controlsService','audioService','hexCanvasService','visualizerService', 'SYNTH_DEFAULT_TEMPLATES', 'localStorageService'];
 
-    function menuController($scope,$timeout,$rootScope,themeService,eventService,audioService,hexCanvasService,visualizerCanvasService, SYNTH_DEFAULT_TEMPLATES, localStorageService) {
+    function menuController($scope,$timeout,$rootScope,themeService,controlsService,audioService,hexCanvasService,visualizerService, SYNTH_DEFAULT_TEMPLATES, localStorageService) {
 
 	    $scope.themeService = themeService;
-	    $scope.eventService = eventService;
+	    $scope.controlsService = controlsService;
 	    $scope.audioService = audioService;
 	    $scope.hexCanvasService = hexCanvasService;
-	    $scope.visualizerCanvasService = visualizerCanvasService;
+	    $scope.visualizerService = visualizerService;
 
 
 	    $scope.helpButton = helpButton;
@@ -55,7 +55,7 @@ angular
 	    function copierButton() {
 		    $scope.copierVisible = !$scope.copierVisible;
 		    $scope.helpWindowVisible = false;
-		    var data = JSON.stringify(localStorageService.getStorageInfo(audioService, themeService, eventService, visualizerCanvasService, hexCanvasService));
+		    var data = JSON.stringify(localStorageService.getStorageInfo(audioService, themeService, controlsService, visualizerService, hexCanvasService));
 		    $rootScope.$broadcast("importExport", data);
 	    }
 

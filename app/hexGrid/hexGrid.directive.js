@@ -1,9 +1,9 @@
-angular.module('hexCanvasServiceModule', [])
+angular.module('hexGridModule', [])
     .service("hexCanvasService", hexCanavasService);
 
-	hexCanavasService.$inject = ['$window', 'themeService', 'eventService', 'audioService', 'localStorageService'];
+	hexCanavasService.$inject = ['$window', 'themeService', 'controlsService', 'audioService', 'localStorageService'];
 
-	function hexCanavasService($window, themeService, eventService, audioService, localStorageService){
+	function hexCanavasService($window, themeService, controlsService, audioService, localStorageService){
 
         var hexCanvas = this;
         var w, h, lastHoverIndex = -1;
@@ -135,22 +135,22 @@ angular.module('hexCanvasServiceModule', [])
         };
 
         hexCanvas.checkHexes = function(overRide) {
-            if (eventService.controlsIndex == 0) {
+            if (controlsService.controlsIndex == 0) {
                 //get hover index
-                if (!eventService.events.mouseDown) {
+                if (!controlsService.events.mouseDown) {
                     hexCanvas.hoverIndex = -1;
                     for (var i = 0; i < hexCanvas.hexGrid.hexes.length; i++){
-                        if (pointInPolygon(hexCanvas.hexGrid.hexes[i].xArray,hexCanvas.hexGrid.hexes[i].yArray,eventService.events.mouseX,eventService.events.mouseY)) {
+                        if (pointInPolygon(hexCanvas.hexGrid.hexes[i].xArray,hexCanvas.hexGrid.hexes[i].yArray,controlsService.events.mouseX,controlsService.events.mouseY)) {
                             hexCanvas.hoverIndex = i;
                             break;
                         }
                     }
                 }
             }
-            if (eventService.controlsIndex == 1 && overRide) {
+            if (controlsService.controlsIndex == 1 && overRide) {
                 hexCanvas.hoverIndex = -1;
                 for (i = 0; i < hexCanvas.hexGrid.hexes.length; i++){
-                    if (pointInPolygon(hexCanvas.hexGrid.hexes[i].xArray,hexCanvas.hexGrid.hexes[i].yArray,eventService.events.mouseX,eventService.events.mouseY)) {
+                    if (pointInPolygon(hexCanvas.hexGrid.hexes[i].xArray,hexCanvas.hexGrid.hexes[i].yArray,controlsService.events.mouseX,controlsService.events.mouseY)) {
                         hexCanvas.hoverIndex = i;
                         break;
                     }

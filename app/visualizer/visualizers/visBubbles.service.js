@@ -1,5 +1,5 @@
 angular
-	.module('visualizerServiceModule')
+	.module('visualizerModule')
     .factory("VisBubbles", visBubblesFactory);
 
 	visBubblesFactory.$inject = ['mathService', 'colorService', 'browserService'];

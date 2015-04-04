@@ -1,11 +1,10 @@
 angular
-	.module('eventServiceModule', [])
-	.directive('html', html)
-	.factory("eventService", eventService);
+	.module('htmlModule', [])
+	.directive('html', html);
 
-	html.$inject = ['$rootScope','$window','themeService','eventService','audioService','hexCanvasService','visualizerCanvasService','localStorageService'];
+	html.$inject = ['$rootScope','$window','themeService','controlsService','audioService','hexCanvasService','localStorageService'];
 
-	function html($rootScope,$window, themeService, eventService, audioService, hexCanvasService, visualizerCanvasService, localStorageService){
+	function html($rootScope,$window, themeService, controlsService, audioService, hexCanvasService, localStorageService){
         return {
             restrict: 'E',
             link: function(scope,element){
@@ -16,12 +15,11 @@ angular
                 };
                 $window.onresize = function() {
                     hexCanvasService.windowResize();
-                    visualizerCanvasService.windowResize();
+                    $rootScope.$broadcast('windowResize');
                 };
                 $window.onbeforeunload = function(){
-                    var hexSynthDearthFunkSaveObject = localStorageService.getStorageInfo(audioService,themeService,eventService,visualizerCanvasService,hexCanvasService);
-
-                   localStorage.setItem('hexSynthDearthFunkSaveObject', JSON.stringify(hexSynthDearthFunkSaveObject));
+                    var hexSynthDearthFunkSaveObject = localStorageService.getStorageInfo(audioService,themeService,controlsService,visualizerService,hexCanvasService);
+                    localStorage.setItem('hexSynthDearthFunkSaveObject', JSON.stringify(hexSynthDearthFunkSaveObject));
                 };
 
 
@@ -34,20 +32,20 @@ angular
                 element.bind("mousemove", function(event) {
                     if (event.target.localName != "textarea") {
                         hexCanvasService.checkHexes();
-                        eventService.events.mouseX = event.clientX;
-                        eventService.events.mouseY = event.clientY;
+	                    controlsService.events.mouseX = event.clientX;
+	                    controlsService.events.mouseY = event.clientY;
                         $rootScope.$broadcast("mouseMoveEvent",event);
                     }
                 });
                 element.bind("mousedown", function(event) {
                     if (event.target.localName != "textarea") {
-                        eventService.events.mouseDown = true;
+	                    controlsService.events.mouseDown = true;
                         $rootScope.$broadcast("mouseDownEvent",event);
                     }
                 });
                 element.bind("mouseup", function(event){
                     if (event.target.localName != "textarea") {
-                        eventService.events.mouseDown = false;
+	                    controlsService.events.mouseDown = false;
                         hexCanvasService.checkHexes(true);
                         $rootScope.$broadcast("mouseUpEvent",event);
                     }
@@ -57,7 +55,7 @@ angular
                 element.bind("keydown", function(event){
                     if (event.target.localName != "textarea") {
                         audioService.handleKeyPress(event);
-                        var controls = eventService.controls[eventService.controlsIndex];
+                        var controls = controlsService.controls[controlsService.controlsIndex];
                         var synthTemplate = audioService.synthTemplates[audioService.synthIndex];
                         for (var i = 0; i < controls.bypasses.length; i++) {
                             if (event.keyCode == controls.bypasses[i]) {
@@ -73,32 +71,3 @@ angular
             }
         }
     }
-
-	eventService.$inject = ['localStorageService'];
-
-	function eventService(localStorageService){
-        var service = {
-	        controls: [
-		        {
-			        name: "Follower",
-			        bypasses: [65, 83, 68, 90, 88, 67],
-			        bypassFunctions: ["bitcrusher", "overdrive", "tremolo", "wahwah", "phaser", "delay"]
-		        },
-		        {
-			        name: "Clicker",
-			        bypasses: [65, 83, 68, 90, 88, 67],
-			        bypassFunctions: ["bitcrusher", "overdrive", "tremolo", "wahwah", "phaser", "delay"]
-		        }
-	        ],
-	        controlsIndex: angular.isObject(localStorageService.storage) ? localStorageService.storage.controlsIndex : 0,
-	        events: {
-		        mouseX: 0,
-		        mouseY: 0,
-		        mouseDown: false,
-		        keyFx1: false,
-		        keyFx2: false,
-		        keySquare: false
-	        }
-        };
-		return service;
-	}

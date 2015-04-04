@@ -1,5 +1,5 @@
 angular
-	.module('visualizerServiceModule')
+	.module('visualizerModule')
     .factory("VisScope", visScopeFactory);
 
 	visScopeFactory.$inject = [];

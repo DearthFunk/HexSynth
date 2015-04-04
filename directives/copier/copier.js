@@ -15,9 +15,9 @@ angular
 		return directive;
 	}
 
-	copierController.$inject = ['$scope', 'audioService', 'themeService', 'eventService', 'visualizerCanvasService', 'hexCanvasService'];
+	copierController.$inject = ['$scope', 'audioService', 'themeService', 'controlsService', 'hexCanvasService','visualizerService'];
 
-	function copierController($scope, audioService,themeService,eventService,visualizerCanvasService,hexCanvasService) {
+	function copierController($scope, audioService,themeService,controlsService,hexCanvasService,visualizerService) {
 
 		var client = new ZeroClipboard(document.getElementById('copyButton'));
 		$scope.textAreaData = '';
@@ -37,8 +37,8 @@ angular
 				audioService.synthIndex = parsedData.synthIndex;
 				audioService.synthTemplates = angular.copy(parsedData.synthTemplates);
 				themeService.themeIndex = parsedData.themeIndex;
-				eventService.controlsIndex = parsedData.controlsIndex;
-				visualizerCanvasService.visualizerIndex = parsedData.visualizerIndex;
+				controlsService.controlsIndex = parsedData.controlsIndex;
+				visualizerService.visualizerIndex = parsedData.visualizerIndex;
 				audioService.volume = parsedData.volume;
 				hexCanvasService.hexSize = parsedData.hexSize;
 				hexCanvasService.recalculateAndDrawHexes(true);

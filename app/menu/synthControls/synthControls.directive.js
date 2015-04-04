@@ -1,5 +1,5 @@
 angular
-	.module('synthControlsModule', [])
+	.module('menuModule')
     .directive('synthControls', synthControls);
 
 	synthControls.$inject = [];
@@ -7,7 +7,7 @@ angular
 	function synthControls() {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'directives/synthControls/synthControls.html',
+			templateUrl: 'app/menu/synthControls/synthControls.html',
 			replace: true,
 			controller: synthControlsController,
 			bindToController: true

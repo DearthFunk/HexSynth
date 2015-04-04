@@ -31,48 +31,49 @@
         <script type="text/javascript" src="lib/zeroClipboard/ZeroClipboard.js"></script>
 
     <!-- MAIN -->
-        <script type="text/javascript" src="js/hexSynth.controller.js"></script>
+        <script type="text/javascript" src="app/app.controller.js"></script>
 
     <!-- ELEMENTS -->
-        <script type="text/javascript" src="elements/knob/knob.directive.js"></script>
-        <script type="text/javascript" src="elements/dropDown/dropDown.directive.js"></script>
+		<script type="text/javascript" src="elements/dropDown/dropDown.directive.js"></script>
+		<script type="text/javascript" src="elements/knob/knob.directive.js"></script>
         <script type="text/javascript" src="elements/sliderVertical/sliderVertical.directive.js"></script>
-        <script type="text/javascript" src="elements/knob/knob.directive.js"></script>
 
     <!-- DIRECTIVES -->
-        <script type="text/javascript" src="directives/menu/menu.js"></script>
-        <script type="text/javascript" src="directives/synthControls/synthControls.js"></script>
         <script type="text/javascript" src="directives/copier/copier.js"></script>
         <script type="text/javascript" src="directives/helpWindow/helpWindow.js"></script>
-		<script type="text/javascript" src="directives/ngRightClick.directive.js"></script>
+		<script type="text/javascript" src="directives/html/html.directive.js"></script>
+		<script type="text/javascript" src="directives/rightClick/rightClick.directive.js"></script>
 
-    <!-- SERVICES -->
-        <script type="text/javascript" src="js/services/audio.service.js"></script>
-		<script type="text/javascript" src="js/services/browser.service.js"></script>
-        <script type="text/javascript" src="js/services/event.service.js"></script>
-		<script type="text/javascript" src="js/services/math.service.js"></script>
-		<script type="text/javascript" src="js/services/color.service.js"></script>
-        <script type="text/javascript" src="js/services/hexCanvas.service.js"></script>
-		<script type="text/javascript" src="js/services/localStorage.service.js"></script>
-        <script type="text/javascript" src="js/services/theme.service.js"></script>
-        <script type="text/javascript" src="js/services/visualizerCanvas.service.js"></script>
+	<!-- SERVICES -->
+        <script type="text/javascript" src="services/audio.service.js"></script>
+		<script type="text/javascript" src="services/browser.service.js"></script>
+		<script type="text/javascript" src="services/color.service.js"></script>
+		<script type="text/javascript" src="services/controls.service.js"></script>
+		<script type="text/javascript" src="services/localStorage.service.js"></script>
+		<script type="text/javascript" src="services/math.service.js"></script>
+		<script type="text/javascript" src="services/theme.service.js"></script>
 
-	<!-- VISUALIZERS -->
-		<script type="text/javascript" src="js/visualizers/visBubbles.service.js"></script>
-		<script type="text/javascript" src="js/visualizers/visScope.service.js"></script>
-		<script type="text/javascript" src="js/visualizers/visTracer.service.js"></script>
+	<!-- App -->
+		<script type="text/javascript" src="app/hexGrid/hexGrid.directive.js"></script>
 
+		<script type="text/javascript" src="app/menu/menu.directive.js"></script>
+			<script type="text/javascript" src="app/menu/synthControls/synthControls.directive.js"></script>
 
+		<script type="text/javascript" src="app/visualizer/visualizer.directive.js"></script>
+		<script type="text/javascript" src="app/visualizer/visualizer.service.js"></script>
+			<script type="text/javascript" src="app/visualizer/visualizers/visBubbles.service.js"></script>
+			<script type="text/javascript" src="app/visualizer/visualizers/visScope.service.js"></script>
+			<script type="text/javascript" src="app/visualizer/visualizers/visTracer.service.js"></script>
 
 	<!-- STYLES -->
-		<link rel="stylesheet/less" href="main.less">
+		<link rel="stylesheet/less" href="app/main.less">
         <script type="text/javascript" src="lib/less.js"></script>
 
 </head>
 
 <body data-ng-controller="hexController" data-ng-style="themeService.themes[themeService.themeIndex].main">
 
-    <canvas class="visualizerCanvas fullScreen"></canvas>
+    <canvas visualizer class="fullScreen"></canvas>
     <canvas class="hexCanvas fullScreen"></canvas>
     <div menu></div>
     <div copier data-ng-show="copierVisible"></div>

@@ -1,9 +1,9 @@
 angular.module('audioServiceModule', [])
     .service("audioService", audioService);
 
-	audioService.$inject = ['eventService','localStorageService','OSC_WAVE_TYPES','SYNTH_DEFAULT_TEMPLATES'];
+	audioService.$inject = ['controlsService','localStorageService','OSC_WAVE_TYPES','SYNTH_DEFAULT_TEMPLATES'];
 
-	function audioService (eventService, localStorageService, OSC_WAVE_TYPES, SYNTH_DEFAULT_TEMPLATES){
+	function audioService (controlsService, localStorageService, OSC_WAVE_TYPES, SYNTH_DEFAULT_TEMPLATES){
 
         var audioCtx = typeof AudioContext !== 'undefined' ?	new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() :	null;
         var audioServiceScope = this;
@@ -118,12 +118,12 @@ angular.module('audioServiceModule', [])
 
         audioServiceScope.handleKeyPress = function(e) {
             switch (e.keyCode) {
-                case eventService.controls[eventService.controlsIndex].bypasses[0] : fxBitCrusher.bypass = !fxBitCrusher.bypass; break;
-                case eventService.controls[eventService.controlsIndex].bypasses[1] : fxOverdrive.bypass = !fxOverdrive.bypass;   break;
-                case eventService.controls[eventService.controlsIndex].bypasses[2] : fxTremolo.bypass = !fxTremolo.bypass;       break;
-                case eventService.controls[eventService.controlsIndex].bypasses[3] : fxWahwah.bypass = !fxWahwah.bypass;         break;
-                case eventService.controls[eventService.controlsIndex].bypasses[4] : fxPhaser.bypass = !fxPhaser.bypass;         break;
-                case eventService.controls[eventService.controlsIndex].bypasses[5] : fxDelay.bypass = !fxDelay.bypass;           break;
+                case controlsService.controls[controlsService.controlsIndex].bypasses[0] : fxBitCrusher.bypass = !fxBitCrusher.bypass; break;
+                case controlsService.controls[controlsService.controlsIndex].bypasses[1] : fxOverdrive.bypass = !fxOverdrive.bypass;   break;
+                case controlsService.controls[controlsService.controlsIndex].bypasses[2] : fxTremolo.bypass = !fxTremolo.bypass;       break;
+                case controlsService.controls[controlsService.controlsIndex].bypasses[3] : fxWahwah.bypass = !fxWahwah.bypass;         break;
+                case controlsService.controls[controlsService.controlsIndex].bypasses[4] : fxPhaser.bypass = !fxPhaser.bypass;         break;
+                case controlsService.controls[controlsService.controlsIndex].bypasses[5] : fxDelay.bypass = !fxDelay.bypass;           break;
             }
         };
 

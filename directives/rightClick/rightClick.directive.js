@@ -1,6 +1,6 @@
 angular
 	.module('rightClickModule', [])
-	.directive('ngRightClick', ngRightClick);
+	.directive('rightClick', ngRightClick);
 
 	ngRightClick.$inject = ['$parse'];
 
