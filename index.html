@@ -73,8 +73,8 @@
 
 <body data-ng-controller="hexController" data-ng-style="themeService.themes[themeService.themeIndex].main">
 
-    <canvas visualizer class="fullScreen"></canvas>
-    <canvas class="hexCanvas fullScreen"></canvas>
+    <canvas class="fullScreen" visualizer></canvas>
+    <canvas class="fullScreen" hex-grid></canvas>
     <div menu></div>
     <div copier data-ng-show="copierVisible"></div>
     <div help-window data-ng-show="helpWindowVisible"></div>
