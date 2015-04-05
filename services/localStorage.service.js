@@ -1,4 +1,5 @@
-angular.module('localStorageServiceModule', [])
+angular
+	.module('localStorageServiceModule', [])
 	.factory('localStorageService', localStorageService);
 
 	localStorageService.$inject = [];
@@ -29,14 +30,14 @@ angular.module('localStorageServiceModule', [])
 
 		function getStorageInfo(menuService) {
 			return {
-				active: false,
-				volume: menuService.volume,
-				hexSize: menuService.hexSize,
-				synthIndex: menuService.synthIndex,
-				themeIndex: menuService.themeIndex,
-				controlsIndex: menuService.controlsIndex,
-				visualizerIndex: menuService.visualizerIndex,
-				synthTemplates: angular.copy(menuService.synthTemplates)
+				active:             true,
+				volume:             menuService.volume,
+				hexSize:            menuService.hexSize,
+				synthIndex:         menuService.synthIndex,
+				themeIndex:         menuService.themeIndex,
+				controlsIndex:      menuService.controlsIndex,
+				visualizerIndex:    menuService.visualizerIndex,
+				synthTemplates:     menuService.synthTemplates
 			};
 		}
 	}

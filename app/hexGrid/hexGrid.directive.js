@@ -19,7 +19,10 @@ angular
 	function hexGridController($scope, $element, $window, THEMES, controlsService, audioService, menuService){
 
 		var notes = ['A','A\'','B','C','C\'','D','D\'','E','F','F\'','G','G\''];
-        var w, h, hoverIndex, lastHoverIndex = -1;
+        var w = -1,
+	        h = -1,
+	        hoverIndex = -1,
+	        lastHoverIndex = -1;
         var ctx = $element[0].getContext('2d');
 		var hexScreenPadding = 30;
         var hexGrid = {};
@@ -111,7 +114,7 @@ angular
         }
 
         function drawHex(hex, hover) {
-            ctx.beginPath();
+           ctx.beginPath();
             ctx.lineWidth = hover ? 2 : 1;
             ctx.strokeStyle = hover ? THEMES[menuService.themeIndex].hexActive.border : THEMES[menuService.themeIndex].hex.border;
             ctx.fillStyle   = hover ?
