@@ -58,7 +58,7 @@ angular
                         var controls = controlsService.controls[menuService.controlsIndex];
                         var synthTemplate = menuService.synthTemplates[menuService.synthIndex];
                         for (var i = 0; i < controls.bypasses.length; i++) {
-                            if (event.keyCode == controls.bypasses[i]) {
+                            if (event.keyCode === controls.bypasses[i]) {
                                 var toSwitch = controls.bypassFunctions[i];
                                 synthTemplate.controls[toSwitch].bypass = !synthTemplate.controls[toSwitch].bypass;
                                 audioService.updateSynthValues();

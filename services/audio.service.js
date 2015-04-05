@@ -150,7 +150,7 @@ angular.module('audioServiceModule', [])
 			var theSmallArray = [];
 			var theFreqArray =  new Uint8Array(audioServiceScope.analyser.frequencyBinCount);
 			audioServiceScope.analyser.getByteFrequencyData(theFreqArray);
-			var x = depth == undefined ? 1 : depth;
+			var x = depth === undefined ? 1 : depth;
 			var len = theFreqArray.length - removal;
 			for (var i =0; i < len; i += x) {
 				theSmallArray.push( theFreqArray[i] );
@@ -161,7 +161,7 @@ angular.module('audioServiceModule', [])
 			var theSmallArray = [];
 			var theTimeArray  = new Uint8Array(audioServiceScope.analyser.frequencyBinCount);
 			audioServiceScope.analyser.getByteTimeDomainData(theTimeArray);
-			var x = depth == undefined ? 1 : depth;
+			var x = angular.isDefined(depth) ? depth : 1;
 			var len = theTimeArray.length - removal;
 			for (var i =0; i < len; i += x) {
 				theSmallArray.push( theTimeArray[i] );

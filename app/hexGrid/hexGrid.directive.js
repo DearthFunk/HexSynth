@@ -79,7 +79,7 @@ angular
                     counter++;
                     xPos = col * hexGrid.hexSide + hexScreenPadding;
                     yPos = (row * hexGrid.hexHeight) + (offsetColumn ? hexGrid.hexHeight * 0.5 : 0) + hexScreenPadding;
-                    var noteIndex = ((col%2 == 0 ? 0 : 9) + (Math.floor(col/2)+(row*5))) % notes.length;
+                    var noteIndex = ((col%2 === 0 ? 0 : 9) + (Math.floor(col/2)+(row*5))) % notes.length;
 
                     hexGrid.hexes.push({
                         col: col,
@@ -87,7 +87,7 @@ angular
                         noteIndex: noteIndex,
                         index:counter,
                         frequency: Math.floor(440 * Math.pow(2, (noteIndex + (row * 12) - 48) / 12)),
-                        sharp: noteIndex == 1 || noteIndex == 3 || noteIndex == 6 || noteIndex == 8 || noteIndex == 10,
+                        sharp: noteIndex === 1 || noteIndex === 3 || noteIndex === 6 || noteIndex === 8 || noteIndex === 10,
                         centerX: xPos - getHexSize(menuService.hexSize) + hexGrid.hexWidth,
                         centerY: yPos + (hexGrid.hexHeight / 2),
                         xArray:[
@@ -158,7 +158,7 @@ angular
         }
 
 		function checkHexes(overRide) {
-            if (menuService.controlsIndex == 0) {
+            if (menuService.controlsIndex === 0) {
                 //get hover index
                 if (!controlsService.events.mouseDown) {
                     hoverIndex = -1;
@@ -170,7 +170,7 @@ angular
                     }
                 }
             }
-            if (menuService.controlsIndex == 1 && overRide) {
+            if (menuService.controlsIndex === 1 && overRide) {
                 hoverIndex = -1;
                 for (i = 0; i < hexGrid.hexes.length; i++){
                     if (pointInPolygon(hexGrid.hexes[i].xArray,hexGrid.hexes[i].yArray,controlsService.events.mouseX,controlsService.events.mouseY)) {
@@ -194,7 +194,7 @@ angular
                 drawHex(hexGrid.hexes[hoverIndex],true);
             }
             //play notes
-            hoverIndex == -1 ? audioService.stopHexSound() : audioService.playHexSound(hexGrid.hexes[hoverIndex].frequency);
+            hoverIndex === -1 ? audioService.stopHexSound() : audioService.playHexSound(hexGrid.hexes[hoverIndex].frequency);
             lastHoverIndex = hoverIndex;
         };
     }
