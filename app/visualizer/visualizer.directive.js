@@ -15,29 +15,26 @@ angular
 		return directive
 	}
 
-	visualizerController.$inject = ['$scope', '$element', '$window', '$timeout', 'audioService', 'localStorageService', 'menuService', 'VisBubbles', 'VisTracer', 'VisScope'];
+	visualizerController.$inject = ['$scope', '$element', '$window', '$timeout', 'visualizerService', 'audioService', 'menuService'];
 
-	function visualizerController($scope, $element, $window, $timeout, audioService, localStorageService, menuService, VisBubbles, VisTracer, VisScope) {
+	function visualizerController($scope, $element, $window, $timeout, visualizerService, audioService, menuService) {
 
-		var ctx = $element[0].getContext('2d');
-		var drawSpeed = 20;
-		var visualizerCanvas = this;
-		var w, h = 0;
 		var prom;
+		var w = 0,
+			h = 0;
+		var ctx = $element[0].getContext('2d');
+		for (var i = 0; i < visualizerService.visualizers.length; i++) {
+			if (visualizerService.visualizers[i].vis) {
+				visualizerService.visualizers[i].vis.ctx = ctx;
+			}
+		}
 
 		$scope.windowResize = windowResize;
 		$scope.timer = timer;
 		$scope.$on('windowResize', $scope.windowResize);
 
-		$scope.visualizers = [
-			{name:'None',   globalCompositeOperation: '',            clearCanvas:false, vis: false},
-			{name:'Bubbles',globalCompositeOperation: 'lighter',     clearCanvas:true,  vis: new VisBubbles(ctx)},
-			{name:'Scope',  globalCompositeOperation: 'source-over', clearCanvas:false, vis: new VisScope(ctx)},
-			{name:'Tracer', globalCompositeOperation: 'lighter',     clearCanvas:true,  vis: new VisTracer(ctx)}
-		];
-
-		timer();
 		windowResize();
+		timer();
 
 		//////////////////////////////////////////////////////////////////
 
@@ -46,10 +43,10 @@ angular
 			h = $window.innerHeight;
 			ctx.canvas.style.width = w +'px';
 			ctx.canvas.style.height = h + 'px';
-			angular.element(ctx.canvas).attr({width:  w, height: h	});
+			angular.element(ctx.canvas).attr({width: w, height: h});
 		}
 		function timer() {
-			var vis = $scope.visualizers[menuService.visualizerIndex];
+			var vis = visualizerService.visualizers[menuService.visualizerIndex];
 			if (vis.clearCanvas || !vis) {
 				ctx.clearRect(0,0, w,h);
 			}
@@ -62,12 +59,13 @@ angular
 			}
 
 			if (vis.vis) {
-				switch($scope.visualizerIndex) {
+				switch(menuService.visualizerIndex) {
 					case 1: vis.vis.audioDB = audioService.getAverageDB(); break;
 					case 2: vis.vis.audioData = audioService.getTimeArray(2,100); break;
 				}
+				console.log($scope.visualizerIndex);
 				vis.vis.draw();
 			}
-			prom = $timeout($scope.timer, drawSpeed);
+			prom = $timeout($scope.timer, 30);
 		}
 	}

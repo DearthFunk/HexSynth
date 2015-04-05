@@ -6,8 +6,8 @@ angular
 
 	function visTracerFactory() {
 
-		var VisTracer = function (ctx) {
-			this.ctx = ctx;
+		var VisTracer = function () {
+
 		};
 
 		VisTracer.prototype.draw = function() {

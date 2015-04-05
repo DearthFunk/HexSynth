@@ -27,7 +27,5 @@ angular
 		service.isFirefox = service.browserType[0] === 'Firefox';
 		service.isSafari = service.browserType[0] === 'Safari';
 
-
 		return service;
-		
 	}

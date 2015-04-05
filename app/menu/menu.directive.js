@@ -15,22 +15,21 @@ angular
 		return directive;
 	}
 
-	menuController.$inject = ['$scope','$timeout','$rootScope','THEMES','controlsService','audioService','menuService', 'SYNTHS', 'localStorageService'];
+	menuController.$inject = ['$scope','$timeout','$rootScope','THEMES','controlsService','audioService','menuService', 'SYNTHS', 'localStorageService', 'visualizerService'];
 
-    function menuController($scope,$timeout,$rootScope,THEMES,controlsService,audioService,menuService, SYNTHS, localStorageService) {
+    function menuController($scope,$timeout,$rootScope,THEMES,controlsService,audioService,menuService, SYNTHS, localStorageService, visualizerService) {
 
 	    $scope.THEMES = THEMES;
 	    $scope.controlsService = controlsService;
 	    $scope.audioService = audioService;
 	    $scope.menuService = menuService;
-
+	    $scope.visualizerService = visualizerService;
 
 	    $scope.helpButton = helpButton;
 	    $scope.copierButton = copierButton;
 	    $scope.changeTheme = changeTheme;
 	    $scope.changeSynth = changeSynth;
 	    $scope.resetSynth = resetSynth;
-
 	    $scope.updateVolume = updateVolume;
 	    $scope.updateSize = updateSize;
 

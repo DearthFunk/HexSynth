@@ -1,13 +1,5 @@
 angular
 	.module('hexSynth', [
-		//services
-		    'audioServiceModule',
-			'browserServiceModule',
-			'colorServiceModule',
-	        'controlsServiceModule',
-			'localStorageServiceModule',
-			'mathServiceModule',
-			'menuServiceModule',
 		//element directives
 			'dropDownModule',
 			'knobModule',
@@ -22,7 +14,16 @@ angular
 		//visualizer
 			'visualizerModule',
 		//hexGrid
-			'hexGridModule'
+			'hexGridModule',
+		//services
+		'audioServiceModule',
+		'browserServiceModule',
+		'colorServiceModule',
+		'controlsServiceModule',
+		'localStorageServiceModule',
+		'mathServiceModule',
+		'menuServiceModule',
+		'visualizerServiceModule'
 
 	])
 	.constant('OSC_WAVE_TYPES',[

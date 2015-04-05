@@ -13,26 +13,28 @@ angular
 			this.ctx = ctx;
 			this.audioDB = 0;
 			this.balls = [];
-			for (var i = 0; i < totalBalls; i++) {
-				balls.push(this.newBall());
-			}
 		};
 
 		VisBubbles.prototype.draw = function() {
-			var db = this.audioDB;
-			for (var i = 0; i < balls.length; i++) {
-				var ball = balls[i];
-				ball.y -= (ball.yX * (1 + (db / 100)));
-				ball.r -= (ball.rX * (1 + (db / 30)));
-				if (ball.y + ball.r < -15 || ball.r < 0) {
-					balls[i] = this.newBall();
-				}
-				else {
-					this.ctx.beginPath();
-					this.ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2, false);
-					this.ctx.fillStyle = ball.color;
-					this.ctx.fill();
-					this.ctx.closePath();
+			if (this.ctx) {
+				var db = this.audioDB;
+				for (var i = 0; i < totalBalls; i++) {
+					if (angular.isUndefined(balls[i])) {
+						balls[i] = this.newBall();
+					}
+					var ball = balls[i];
+					ball.y -= (ball.yX * (1 + (db / 100)));
+					ball.r -= (ball.rX * (1 + (db / 30)));
+					if (ball.y + ball.r < -15 || ball.r < 0) {
+						balls[i] = this.newBall();
+					}
+					else {
+						this.ctx.beginPath();
+						this.ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2, false);
+						this.ctx.fillStyle = ball.color;
+						this.ctx.fill();
+						this.ctx.closePath();
+					}
 				}
 			}
 		};
