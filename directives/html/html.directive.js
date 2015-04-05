@@ -2,57 +2,71 @@ angular
 	.module('htmlModule', [])
 	.directive('html', html);
 
-	html.$inject = ['$rootScope','$window','THEMES','controlsService','audioService','localStorageService', 'menuService'];
+	html.$inject = ['$rootScope','$window','controlsService','audioService','localStorageService', 'menuService'];
 
-	function html($rootScope,$window, THEMES, controlsService, audioService, localStorageService, menuService){
+	function html($rootScope,$window, controlsService, audioService, localStorageService, menuService){
         return {
             restrict: 'E',
             link: function(scope,element){
 
-            //window events
-                $window.onblur = function(event) {$rootScope.$broadcast('windowBlurEvent',event);
+	            //window events
+                $window.onblur = windowOnBlur;
+	            $window.onresize = windowOnResize;
+	            $window.onbeforeunload = windowOnBeforeUnload;
+
+				//control events
+	            element.bind('mousewheel', mouseWheel);
+	            element.bind('mousemove', mouseMove);
+	            element.bind('mousedown', mouseDown);
+	            element.bind('mouseup', mouseUp);
+	            element.bind('keyup', keyUp);
+	            element.bind('keydown', keyDown);
+
+	            /////////////////////////////////////////////////////
+
+	            function windowOnBlur(event) {
+	                $rootScope.$broadcast('windowBlurEvent',event);
                     audioService.stopHexSound();
-                };
-                $window.onresize = function() {
-                    //hexCanvasService.windowResize();
+                }
+
+	            function windowOnResize() {
                     $rootScope.$broadcast('windowResize');
-                };
-                $window.onbeforeunload = function(){
+                }
+
+	            function windowOnBeforeUnload(){
                     var hexSynthDearthFunkSaveObject = localStorageService.getStorageInfo(menuService);
                     localStorage.setItem('hexSynthDearthFunkSaveObject', JSON.stringify(hexSynthDearthFunkSaveObject));
-                };
+                }
 
-
-            //mouse events
-                element.bind('mousewheel', function(event){
+	            function mouseWheel(event){
                     if (event.target.localName != 'textarea') {
                         $rootScope.$broadcast('mouseWheelEvent',event);
                     }
-                });
-                element.bind('mousemove', function(event) {
+                }
+
+	            function mouseMove(event) {
                     if (event.target.localName != 'textarea') {
-                        //hexCanvasService.checkHexes();
 	                    controlsService.events.mouseX = event.clientX;
 	                    controlsService.events.mouseY = event.clientY;
                         $rootScope.$broadcast('mouseMoveEvent',event);
                     }
-                });
-                element.bind('mousedown', function(event) {
+                }
+
+	            function mouseDown(event) {
                     if (event.target.localName != 'textarea') {
 	                    controlsService.events.mouseDown = true;
                         $rootScope.$broadcast('mouseDownEvent',event);
                     }
-                });
-                element.bind('mouseup', function(event){
+                }
+
+	            function mouseUp(event){
                     if (event.target.localName != 'textarea') {
 	                    controlsService.events.mouseDown = false;
-                        //hexCanvasService.checkHexes(true);
                         $rootScope.$broadcast('mouseUpEvent',event);
                     }
-                });
+                }
 
-            //keyboard events
-                element.bind('keydown', function(event){
+	            function keyDown(event){
                     if (event.target.localName != 'textarea') {
                         audioService.handleKeyPress(event);
                         var controls = controlsService.controls[menuService.controlsIndex];
@@ -65,9 +79,12 @@ angular
                             }
                         }
                     }
-                });
-                element.bind('keyup', function(event) {
-                });
+                }
+
+	            function keyUp(event) {
+
+	            }
+
             }
         }
     }

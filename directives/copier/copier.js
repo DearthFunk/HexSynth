@@ -40,7 +40,7 @@ angular
 				menuService.controlsIndex = parsedData.controlsIndex;
 				menuService.visualizerIndex = parsedData.visualizerIndex;
 				menuService.volume = parsedData.volume;
-				//hexCanvasService.hexSize = parsedData.hexSize;
+				menuService.hexSize = parsedData.hexSize;
 				//hexCanvasService.recalculateAndDrawHexes(true);
 			}
 			$scope.copierVisible = !$scope.copierVisible;

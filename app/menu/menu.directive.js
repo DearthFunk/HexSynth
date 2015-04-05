@@ -19,12 +19,9 @@ angular
 
     function menuController($scope,$timeout,$rootScope,THEMES,controlsService,audioService,menuService, SYNTHS, localStorageService) {
 
-	    console.log(SYNTHS);
-
 	    $scope.THEMES = THEMES;
 	    $scope.controlsService = controlsService;
 	    $scope.audioService = audioService;
-	   // $scope.hexCanvasService = hexCanvasService;
 	    $scope.menuService = menuService;
 
 
