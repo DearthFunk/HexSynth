@@ -32,7 +32,9 @@ angular
 		$scope.drawHex = drawHex;
 		$scope.checkHexes = checkHexes;
 
-		$scope.$on('redrawGrid', $scope.recalculateAndDrawHexes);
+		$scope.$on('hexSizeUpdate', $scope.recalculateAndDrawHexes);
+		$scope.$on('themeChange', $scope.recalculateAndDrawHexes);
+		$scope.$on('mouseMoveEvent', $scope.checkHexes);
 
 		windowResize();
 
@@ -196,5 +198,5 @@ angular
             //play notes
             hoverIndex === -1 ? audioService.stopHexSound() : audioService.playHexSound(hexGrid.hexes[hoverIndex].frequency);
             lastHoverIndex = hoverIndex;
-        };
+        }
     }

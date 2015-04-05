@@ -38,7 +38,7 @@ angular
 
 	    function updateSize(newVal, firstLoad) {
 		    if (!firstLoad) {
-			    $rootScope.$broadcast('redrawGrid');
+			    $rootScope.$broadcast('hexSizeUpdate');
 		    }
 
 	    }
@@ -47,7 +47,7 @@ angular
 	    }
 	    function changeTheme(index) {
 		    menuService.themeIndex = index;
-		    $rootScope.$broadcast('redrawGrid');
+		    $rootScope.$broadcast('themeChange');
 	    }
 
 	    function changeSynth(index) {
