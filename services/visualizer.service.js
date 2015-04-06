@@ -8,10 +8,10 @@ angular
 		var service = {
 			ctx: {},
 			visualizers: [
-				{name:'None',   globalCompositeOperation: '',            clearCanvas:false, vis: false},
-				{name:'Bubbles',globalCompositeOperation: 'lighter',     clearCanvas:true,  vis: new VisBubbles()},
-				{name:'Scope',  globalCompositeOperation: 'source-over', clearCanvas:false, vis: new VisScope()},
-				{name:'Tracer', globalCompositeOperation: 'lighter',     clearCanvas:true,  vis: new VisTracer()}
+				{name:'None',   globalCompositeOperation: '',            vis: false},
+				{name:'Bubbles',globalCompositeOperation: 'lighter',     vis: new VisBubbles()},
+				{name:'Scope',  globalCompositeOperation: 'source-over', vis: new VisScope()},
+				{name:'Tracer', globalCompositeOperation: 'lighter',     vis: new VisTracer()}
 			]
 		};
 		return service;
