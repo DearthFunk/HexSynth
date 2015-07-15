@@ -1,35 +1,48 @@
-angular.module('copierModule', [])
+angular
+	.module('copierModule', [])
+    .directive('copier', copier);
 
-    .directive('copier', function ($rootScope,audioService,themeService,eventService,visualizerCanvasService,hexCanvasService) {
-        return {
-            restrict:'C',
-            templateUrl:'directives/copier/copier.html',
-            replace: true,
-            link: function(scope)	{
+	copier.$inject = [];
 
+	function copier() {
+		var directive = {
+			restrict: 'EA',
+			templateUrl: 'directives/copier/copier.html',
+			replace: true,
+			controller: copierController,
+			bindToController: true
+		};
+		return directive;
+	}
 
-                var client = new ZeroClipboard( document.getElementById("copyButton") );
-                scope.textAreaData = '';
+	copierController.$inject = ['$scope', 'menuService'];
 
-                scope.$on("importExport",function(event,data){
-                    scope.textAreaData = data;
-                });
+	function copierController($scope, menuService) {
 
-                scope.importData = function() {
-                    var parsedData = JSON.parse(scope.textAreaData);
-                    if (parsedData != null){
-                        audioService.synthIndex = parsedData.synthIndex;
-                        audioService.synthTemplates = deepCopy(parsedData.synthTemplates);
-                        themeService.themeIndex = parsedData.themeIndex;
-                        eventService.controlsIndex = parsedData.controlsIndex;
-                        visualizerCanvasService.visualizerIndex = parsedData.visualizerIndex;
-                        audioService.volume = parsedData.volume;
-                        hexCanvasService.hexSize = parsedData.hexSize;
-                        hexCanvasService.recalculateAndDrawHexes(true);
-                    }
-                    scope.copierVisible = !scope.copierVisible;
-                }
+		var client = new ZeroClipboard(document.getElementById('copyButton'));
+		$scope.textAreaData = '';
+		$scope.importData = importData;
+		$scope.importExport = importExport;
+		$scope.$on('importExport', $scope.importExport);
 
-            }
-        }
-    });
+		/////////////////////////////////////////////
+
+		function importExport(e,data) {
+			$scope.textAreaData = data;
+		}
+
+		function importData() {
+			var parsedData = JSON.parse($scope.textAreaData);
+			if (parsedData != null) {
+				menuService.synthIndex = parsedData.synthIndex;
+				menuService.synthTemplates = angular.copy(parsedData.synthTemplates);
+				menuService.themeIndex = parsedData.themeIndex;
+				menuService.controlsIndex = parsedData.controlsIndex;
+				menuService.visualizerIndex = parsedData.visualizerIndex;
+				menuService.volume = parsedData.volume;
+				menuService.hexSize = parsedData.hexSize;
+				//hexCanvasService.recalculateAndDrawHexes(true);
+			}
+			$scope.copierVisible = !$scope.copierVisible;
+		}
+	}

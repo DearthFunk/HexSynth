@@ -24,52 +24,60 @@
      \__\/        \  \::/       \  \:\        \  \:\           \__\/    \  \:\                 \  \:\      \  \::/       \  \:\        \  \:\
                    \__\/         \__\/         \__\/                     \__\/                  \__\/       \__\/         \__\/         \__\/  -->
 
-    <!--LIBRARIES------------------------------------------------------------------------------------------------------>
+    <!-- LIBRARIES -->
+		<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
         <script type="text/javascript" src="lib/angular/angular.js"></script>
         <script type="text/javascript" src="lib/tuna/tuna.js"></script>
-        <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
         <script type="text/javascript" src="lib/zeroClipboard/ZeroClipboard.js"></script>
 
-    <!--MAIN----------------------------------------------------------------------------------------------------------->
-        <link rel="stylesheet" href="css/main.css">
-        <script type="text/javascript" src="js/controller.js"></script>
-        <script type="text/javascript" src="js/functions.js"></script>
-        <script type="text/javascript" src="js/variables.js"></script>
+    <!-- MAIN -->
+        <script type="text/javascript" src="app/app.controller.js"></script>
 
-    <!--ELEMENTS------------------------------------------------------------------------------------------------------->
-        <script type="text/javascript" src="elements/knob/knob.js"></script>
-        <script type="text/javascript" src="elements/dropDown/dropDown.js"></script>
-        <link rel="stylesheet" href="elements/dropDown/dropDown.css">
-        <script type="text/javascript" src="elements/sliderVertical/sliderVertical.js"></script>
-        <link rel="stylesheet" href="elements/sliderVertical/sliderVertical.css">
-        <script type="text/javascript" src="elements/knob/knob.js"></script>
+    <!-- ELEMENTS -->
+		<script type="text/javascript" src="elements/dropDown/dropDown.directive.js"></script>
+		<script type="text/javascript" src="elements/knob/knob.directive.js"></script>
+        <script type="text/javascript" src="elements/sliderVertical/sliderVertical.directive.js"></script>
 
-    <!--DIRECTIVES----------------------------------------------------------------------------------------------------->
-        <script type="text/javascript" src="directives/menu/menu.js"></script>
-        <link rel="stylesheet" href="directives/menu/menu.css">
-        <script type="text/javascript" src="directives/synthControls/synthControls.js"></script>
-        <link rel="stylesheet" href="directives/synthControls/synthControls.css">
+    <!-- DIRECTIVES -->
         <script type="text/javascript" src="directives/copier/copier.js"></script>
-        <link rel="stylesheet" href="directives/copier/copier.css">
         <script type="text/javascript" src="directives/helpWindow/helpWindow.js"></script>
-        <link rel="stylesheet" href="directives/helpWindow/helpWindow.css">
+		<script type="text/javascript" src="directives/html/html.directive.js"></script>
+		<script type="text/javascript" src="directives/rightClick/rightClick.directive.js"></script>
 
-    <!--SERVICES------------------------------------------------------------------------------------------------------->
-        <script type="text/javascript" src="js/services/audio.js"></script>
-        <script type="text/javascript" src="js/services/event.js"></script>
-        <script type="text/javascript" src="js/services/hexCanvas.js"></script>
-        <script type="text/javascript" src="js/services/theme.js"></script>
-        <script type="text/javascript" src="js/services/visualizerCanvas.js"></script>
+	<!-- SERVICES -->
+        <script type="text/javascript" src="services/audio.service.js"></script>
+		<script type="text/javascript" src="services/browser.service.js"></script>
+		<script type="text/javascript" src="services/color.service.js"></script>
+		<script type="text/javascript" src="services/controls.service.js"></script>
+		<script type="text/javascript" src="services/localStorage.service.js"></script>
+		<script type="text/javascript" src="services/math.service.js"></script>
+		<script type="text/javascript" src="services/menu.service.js"></script>
+		<script type="text/javascript" src="services/visualizer.service.js"></script>
+
+	<!-- App -->
+		<script type="text/javascript" src="app/hexGrid/hexGrid.directive.js"></script>
+
+		<script type="text/javascript" src="app/menu/menu.directive.js"></script>
+			<script type="text/javascript" src="app/menu/synthControls/synthControls.directive.js"></script>
+
+		<script type="text/javascript" src="app/visualizer/visualizer.directive.js"></script>
+			<script type="text/javascript" src="app/visualizer/visualizers/visBubbles.service.js"></script>
+			<script type="text/javascript" src="app/visualizer/visualizers/visScope.service.js"></script>
+			<script type="text/javascript" src="app/visualizer/visualizers/visTracer.service.js"></script>
+
+	<!-- STYLES -->
+		<link rel="stylesheet/less" href="app/app.less">
+        <script type="text/javascript" src="lib/less.js"></script>
 
 </head>
 
-<body data-ng-controller="hexController" data-ng-style="themeService.themes[themeService.themeIndex].main">
+<body data-ng-controller="hexController" data-ng-style="THEMES[menuService.themeIndex].main">
 
-    <canvas class="visualizerCanvas fullScreen"></canvas>
-    <canvas class="hexCanvas fullScreen"></canvas>
-    <div class="menu"></div>
-    <div class="copier" data-ng-show="copierVisible"></div>
-    <div class="helpWindow" data-ng-show="helpWindowVisible"></div>
+    <canvas class="fullScreen" visualizer></canvas>
+    <canvas class="fullScreen" hex-grid></canvas>
+    <div menu></div>
+    <div copier data-ng-show="copierVisible"></div>
+    <div help-window data-ng-show="helpWindowVisible"></div>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
