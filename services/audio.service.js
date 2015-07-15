@@ -6,6 +6,7 @@ angular.module('audioServiceModule', [])
 	function audioService (controlsService, menuService, OSC_WAVE_TYPES){
 
         var audioCtx = typeof AudioContext !== 'undefined' ?	new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() :	null;
+
         var audioServiceScope = this;
         var tuna = new Tuna(audioCtx);
         var playing = false;

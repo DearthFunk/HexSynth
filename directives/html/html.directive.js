@@ -30,7 +30,7 @@ angular
                 }
 
 	            function windowOnResize() {
-                    $rootScope.$broadcast('windowResize');
+                    $rootScope.$broadcast('windowResizeEvent');
                 }
 
 	            function windowOnBeforeUnload(){

@@ -9,6 +9,7 @@ angular
 			restrict: 'EA',
 			templateUrl: 'directives/helpWindow/helpWindow.html',
 			replace: true,
+			transclude: true,
 			controller: helpWindowController,
 			bindToController: true
 		};

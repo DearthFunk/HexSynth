@@ -48,6 +48,7 @@ angular
 		function timer() {
 			var vis = visualizerService.visualizers[menuService.visualizerIndex];
 			ctx.clearRect(0,0, w,h);
+			/*
 			if (vis.vis) {
 				switch(menuService.visualizerIndex) {
 					case 1: vis.vis.audioDB = audioService.getAverageDB(); break;
@@ -55,6 +56,7 @@ angular
 				}
 				vis.vis.draw();
 			}
+			*/
 			prom = $timeout($scope.timer, 30);
 		}
 	}
