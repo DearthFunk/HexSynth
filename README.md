@@ -1,5 +1,5 @@
 # HexSynth 
-Live Sample: http://hexsynth.DearthFunk.com<br>
+Live Sample: http://dearthfunk.github.io/HexSynth/<br>
 
 HexSynth is a tri-tonal synthesizer based on the Harmonic Table layout. Each hex represents a note, like a key
 on a piano. To get up and running 
