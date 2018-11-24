@@ -1,13 +1,13 @@
 angular
 	.module('copierModule', [])
-    .directive('copier', copier);
+    .directive('copier', copierDirective);
 
-	copier.$inject = [];
+	copierDirective.$inject = [];
 
-	function copier() {
+	function copierDirective() {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'directives/copier/copier.html',
+			templateUrl: 'directives/copier/copier.directive.html',
 			replace: true,
 			controller: copierController,
 			bindToController: true

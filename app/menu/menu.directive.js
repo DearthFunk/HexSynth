@@ -7,7 +7,7 @@ angular
 	function menu () {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'app/menu/menu.html',
+			templateUrl: 'app/menu/menu.directive.html',
 			replace: true,
 			controller: menuController,
 			bindToController: true

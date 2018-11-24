@@ -13,7 +13,7 @@ angular
 				callBack: '=callBack',
 				selected: '=selected'
 			},
-			templateUrl: 'elements/dropDown/dropDown.html',
+			templateUrl: 'elements/dropDown/dropDown.directive.html',
 			replace: true,
 			controller: dropDownController,
 			bindToController: true

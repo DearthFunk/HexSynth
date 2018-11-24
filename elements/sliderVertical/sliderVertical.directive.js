@@ -7,7 +7,7 @@ angular
 	function sliderVertical() {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'elements/sliderVertical/sliderVertical.html',
+			templateUrl: 'elements/sliderVertical/sliderVertical.directive.html',
 			replace: true,
 			scope: {
 				sliderValue: '=sliderValue',

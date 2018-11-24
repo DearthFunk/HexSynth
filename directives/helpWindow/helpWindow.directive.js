@@ -1,13 +1,13 @@
 angular
 	.module('helpWindowModule', [])
-    .directive('helpWindow', helpWindow);
+    .directive('helpWindow', helpWindowDirective);
 
-	helpWindow.$inject = [];
+	helpWindowDirective.$inject = [];
 
-	function helpWindow() {
+	function helpWindowDirective() {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'directives/helpWindow/helpWindow.html',
+			templateUrl: 'directives/helpWindow/helpWindow.directive.html',
 			replace: true,
 			transclude: true,
 			controller: helpWindowController,

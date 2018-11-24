@@ -7,7 +7,7 @@ angular
 	function synthControls() {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'app/menu/synthControls/synthControls.html',
+			templateUrl: 'app/menu/synthControls/synthControls.directive.html',
 			replace: true,
 			controller: synthControlsController,
 			bindToController: true
